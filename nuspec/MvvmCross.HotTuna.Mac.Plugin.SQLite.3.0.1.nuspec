@@ -10,9 +10,9 @@
 		<projectUrl>https://github.com/MvvmCross/MvvmCross-SQLite</projectUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>This package contains the Mac Community 'Sqlite' plugin for MvvmCross v3.</description>
-		<tags>mvvm mvvmcross xamarin monodroid monotouch wpf windows8 winrt netcore wp wpdev windowsphone</tags>
+		<tags>mvvm mvvmcross xamarin monodroid monotouch mac</tags>
 		<dependencies>
-		  <dependency id="MvvmCross.HotTuna.CrossCore" version=" 3.0.13" />
+		  <dependency id="MvvmCross.HotTuna.Mac.CrossCore" version="3.1.1-beta1" />
 		</dependencies>
 	</metadata>
 	<files>		
