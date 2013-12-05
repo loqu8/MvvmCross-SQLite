@@ -8,7 +8,6 @@
 using System.IO;
 using Community.SQLite;
 
-
 namespace Cirrious.MvvmCross.Community.Plugins.Sqlite.WindowsPhone
 {
     public class MvxWindowsPhoneSQLiteConnectionFactory

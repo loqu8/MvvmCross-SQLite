@@ -1,4 +1,4 @@
-// MvxStoreSQLiteConnectionFactory.cs
+﻿// MvxWpfSqLiteConnectionFactory.cs
 // (c) Copyright Cirrious Ltd. http://www.cirrious.com
 // MvvmCross is licensed using Microsoft Public License (Ms-PL)
 // Contributions and inspirations noted in readme.md and license.txt
@@ -8,9 +8,9 @@
 using System.IO;
 using Community.SQLite;
 
-namespace Cirrious.MvvmCross.Community.Plugins.Sqlite.WindowsStore
+namespace Cirrious.MvvmCross.Community.Plugins.Sqlite.Mac
 {
-    public class MvxStoreSQLiteConnectionFactory
+    public class MvxMacSqLiteConnectionFactory
         : ISQLiteConnectionFactory
         , ISQLiteConnectionFactoryEx
     {
@@ -22,7 +22,7 @@ namespace Cirrious.MvvmCross.Community.Plugins.Sqlite.WindowsStore
         public ISQLiteConnection CreateEx(string address, SQLiteConnectionOptions options = null)
         {
             options = options ?? new SQLiteConnectionOptions();
-            var path = options.BasePath ?? Windows.Storage.ApplicationData.Current.LocalFolder.Path;
+            var path = options.BasePath ?? Directory.GetCurrentDirectory();
             var filePath = Path.Combine(path, address);
             return new SQLiteConnection(filePath, SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create, options.StoreDateTimeAsTicks);
         }
