@@ -2962,23 +2962,80 @@ namespace Community.SQLite
             Serialized = 3
         }
 
+#if !USE_CSHARP_SQLITE
+public static void Activate(string passPhrase)
+{
+    if (!string.IsNullOrEmpty(passPhrase))
+    {
+        byte[] passPhraseBytes = UTF8Encoding.UTF8.GetBytes(passPhrase);
+    
+        Activate_Cerod(passPhraseBytes);
+        Activate_See(passPhraseBytes);
+    }
+}
+
+#region From System.Data.SQLite SQLiteConvert.cs
+/********************************************************
+         * ADO.NET 2.0 Data Provider for SQLite Version 3.X
+         * Written by Robert Simpson (robert@blackcastlesoft.com)
+         * 
+         * Released to the public domain, use at your own risk!
+         ********************************************************/
+
+/// <summary>
+/// Converts a string to a UTF-8 encoded byte array sized to include a null-terminating character.
+/// </summary>
+/// <param name="sourceText">The string to convert to UTF-8</param>
+/// <returns>A byte array containing the converted string plus an extra 0 terminating byte at the end of the array.</returns>
+public static byte[] ToUTF8(string sourceText)
+{
+    var _utf8 = Encoding.UTF8;
+
+    Byte[] byteArray;
+    int nlen = _utf8.GetByteCount(sourceText) + 1;
+
+    byteArray = new byte[nlen];
+    nlen = _utf8.GetBytes(sourceText, 0, sourceText.Length, byteArray, 0);
+    byteArray[nlen] = 0;
+
+    return byteArray;
+}
+
+/// <summary>
+/// Converts a UTF-8 encoded IntPtr of the specified length into a .NET string
+/// </summary>
+/// <param name="nativestring">The pointer to the memory where the UTF-8 string is encoded</param>
+/// <param name="nativestringlen">The number of bytes to decode</param>
+/// <returns>A string containing the translated character(s)</returns>
+public static string UTF8ToString(IntPtr nativestring, int nativestringlen)
+{
+    var _utf8 = Encoding.UTF8;
+
+    if (nativestringlen == 0 || nativestring == IntPtr.Zero) return "";
+    if (nativestringlen == -1)
+    {
+        do
+        {
+            nativestringlen++;
+        } while (Marshal.ReadByte(nativestring, nativestringlen) != 0);
+    }
+
+    byte[] byteArray = new byte[nativestringlen];
+
+    Marshal.Copy(nativestring, byteArray, 0, nativestringlen);
+
+    return _utf8.GetString(byteArray, 0, nativestringlen);
+}
+#endregion
+#endif
+
 #if !USE_CSHARP_SQLITE && !USE_WP8_NATIVE_SQLITE
 [DllImport("sqlite3", EntryPoint = "sqlite3_activate_cerod", CallingConvention = CallingConvention.Cdecl)]
-internal static extern void ActivateCerod(byte[] passPhrase);
+internal static extern void Activate_Cerod(byte[] passPhrase);
 
 [DllImport("sqlite3", EntryPoint = "sqlite3_activate_see", CallingConvention = CallingConvention.Cdecl)]
-internal static extern void ActivateSee(byte[] passPhrase);
+internal static extern void Activate_See(byte[] passPhrase);
 
-        public static void Activate(string passPhrase)
-        {
-            if (!string.IsNullOrEmpty(passPhrase))
-            {            
-                byte[] passPhraseBytes = UTF8Encoding.UTF8.GetBytes(passPhrase);
-
-                ActivateCerod(passPhraseBytes);
-                ActivateSee(passPhraseBytes);
-            }
-        }
 [DllImport("sqlite3", EntryPoint = "sqlite3_open", CallingConvention = CallingConvention.Cdecl)]
         public static extern Result Open([MarshalAs(UnmanagedType.LPStr)] string filename, out IntPtr db);
 
@@ -3024,61 +3081,6 @@ internal static extern void ActivateSee(byte[] passPhrase);
         // by using "out string pzTail". However it is flaky because there are memory allocation issues in the returned
         // object, because pzTail should actually be a pointer to the const char zSql.  I suspect you ultimately have to 
         // implement it using IntPtrs.  IntPtr pSQL and IntPtr pzTail.
-
-        #region From System.Data.SQLite SQLiteConvert.cs
-        /********************************************************
-         * ADO.NET 2.0 Data Provider for SQLite Version 3.X
-         * Written by Robert Simpson (robert@blackcastlesoft.com)
-         * 
-         * Released to the public domain, use at your own risk!
-         ********************************************************/
-
-        /// <summary>
-        /// Converts a string to a UTF-8 encoded byte array sized to include a null-terminating character.
-        /// </summary>
-        /// <param name="sourceText">The string to convert to UTF-8</param>
-        /// <returns>A byte array containing the converted string plus an extra 0 terminating byte at the end of the array.</returns>
-        public static byte[] ToUTF8(string sourceText)
-        {
-            var _utf8 = Encoding.UTF8;
-
-            Byte[] byteArray;
-            int nlen = _utf8.GetByteCount(sourceText) + 1;
-
-            byteArray = new byte[nlen];
-            nlen = _utf8.GetBytes(sourceText, 0, sourceText.Length, byteArray, 0);
-            byteArray[nlen] = 0;
-
-            return byteArray;
-        }
-
-        /// <summary>
-        /// Converts a UTF-8 encoded IntPtr of the specified length into a .NET string
-        /// </summary>
-        /// <param name="nativestring">The pointer to the memory where the UTF-8 string is encoded</param>
-        /// <param name="nativestringlen">The number of bytes to decode</param>
-        /// <returns>A string containing the translated character(s)</returns>
-        public static string UTF8ToString(IntPtr nativestring, int nativestringlen)
-        {
-            var _utf8 = Encoding.UTF8;
-
-            if (nativestringlen == 0 || nativestring == IntPtr.Zero) return "";
-            if (nativestringlen == -1)
-            {
-                do
-                {
-                    nativestringlen++;
-                } while (Marshal.ReadByte(nativestring, nativestringlen) != 0);
-            }
-
-            byte[] byteArray = new byte[nativestringlen];
-
-            Marshal.Copy(nativestring, byteArray, 0, nativestringlen);
-
-            return _utf8.GetString(byteArray, 0, nativestringlen);
-        }
-        #endregion
-
 
 		public static IntPtr Prepare2 (IntPtr db, ref string query)
         {
@@ -3196,6 +3198,20 @@ internal static extern void ActivateSee(byte[] passPhrase);
             return result;
         }
 #else
+        public static void Activate_Cerod(byte[] passPhrase)
+        {
+#if USE_WP8_NATIVE_SQLITE
+            Sqlite3.sqlite3_activate_cerod(passPhrase);
+#endif
+        }
+
+        public static void Activate_See(byte[] passPhrase)
+        {
+#if USE_WP8_NATIVE_SQLITE
+            Sqlite3.sqlite3_activate_see(passPhrase);
+#endif
+        }
+
         public static Result Open(string filename, out Sqlite3DatabaseHandle db)
         {
 #if USE_CSHARP_SQLITE
@@ -3239,7 +3255,7 @@ internal static extern void ActivateSee(byte[] passPhrase);
             return Sqlite3.sqlite3_changes(db);
         }
 
-        public static Sqlite3Statement Prepare2(Sqlite3DatabaseHandle db, string query)
+        public static Sqlite3Statement Prepare2(Sqlite3DatabaseHandle db, ref string query)
         {
             Sqlite3Statement stmt = default(Sqlite3Statement);
 #if USE_WP8_NATIVE_SQLITE
