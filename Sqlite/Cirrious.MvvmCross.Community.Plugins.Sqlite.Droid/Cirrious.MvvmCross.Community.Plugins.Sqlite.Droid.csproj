@@ -40,14 +40,19 @@
   <ItemGroup>
     <Reference Include="Cirrious.CrossCore">
       <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.1.121-beta1\lib\MonoAndroid\Cirrious.CrossCore.dll</HintPath>
+    </Reference>
     <Reference Include="Cirrious.CrossCore.Droid">
       <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.1.121-beta1\lib\MonoAndroid\Cirrious.CrossCore.Droid.dll</HintPath>
+    </Reference>
     <Reference Include="Cirrious.MvvmCross.Binding">
       <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.1.121-beta1\lib\MonoAndroid\Cirrious.MvvmCross.Binding.dll</HintPath>
+    </Reference>
     <Reference Include="Cirrious.MvvmCross.Binding.Droid">
       <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.1.121-beta1\lib\MonoAndroid\Cirrious.MvvmCross.Binding.Droid.dll</HintPath>
+    </Reference>
     <Reference Include="Cirrious.MvvmCross.Localization">
       <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.1.121-beta1\lib\MonoAndroid\Cirrious.MvvmCross.Localization.dll</HintPath>
+    </Reference>
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />
     <Reference Include="System" />
