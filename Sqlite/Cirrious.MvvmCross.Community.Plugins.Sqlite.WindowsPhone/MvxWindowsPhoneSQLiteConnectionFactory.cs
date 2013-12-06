@@ -9,7 +9,6 @@ using System;
 using System.IO;
 using Community.SQLite;
 using CommonResources = Cirrious.MvvmCross.Community.Plugins.Sqlite.Properties.Resources;
-
 namespace Cirrious.MvvmCross.Community.Plugins.Sqlite.WindowsPhone
 {
     public class MvxWindowsPhoneSQLiteConnectionFactory

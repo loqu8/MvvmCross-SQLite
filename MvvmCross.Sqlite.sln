@@ -9,9 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cirrious.MvvmCross.Communit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cirrious.MvvmCross.Community.Plugins.Sqlite.WindowsStore", "Sqlite\Cirrious.MvvmCross.Community.Plugins.Sqlite.WindowsStore\Cirrious.MvvmCross.Community.Plugins.Sqlite.WindowsStore.csproj", "{654E3C62-163F-430C-AE77-75E5B569722A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cirrious.MvvmCross.Community.Plugins.Sqlite.WindowsPhone.CS", "Sqlite\Cirrious.MvvmCross.Community.Plugins.Sqlite.WindowsPhone.CS\Cirrious.MvvmCross.Community.Plugins.Sqlite.WindowsPhone.CS.csproj", "{E043D17C-221A-41CB-BC75-1D48D5AD0B11}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cirrious.MvvmCross.Community.Plugins.Sqlite.Wpf", "Sqlite\Cirrious.MvvmCross.Community.Plugins.Sqlite.Wpf\Cirrious.MvvmCross.Community.Plugins.Sqlite.Wpf.csproj", "{3B83CD5D-F846-41AF-A68D-FC715EAA81FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cirrious.MvvmCross.Community.Plugins.Sqlite.WindowsPhone", "Sqlite\Cirrious.MvvmCross.Community.Plugins.Sqlite.WindowsPhone\Cirrious.MvvmCross.Community.Plugins.Sqlite.WindowsPhone.csproj", "{E50A773B-ABD3-4AE0-B892-C7F381BC83F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cirrious.MvvmCross.Community.Plugins.Sqlite.Mac", "Sqlite\Cirrious.MvvmCross.Community.Plugins.Sqlite.Mac\Cirrious.MvvmCross.Community.Plugins.Sqlite.Mac.csproj", "{12A0A760-10DB-4D3B-A8B3-FA034BC7E091}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{7AD54447-31D0-4B89-AA43-3EBF8858F145}"
 EndProject
@@ -20,6 +22,15 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestSqliteTouch", "Tests\TestSqliteTouch\TestSqliteTouch.csproj", "{CF80726C-861B-426D-A287-CAE1F95CC1E5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestSqliteDroid", "Tests\TestSqliteDroid\TestSqliteDroid.csproj", "{A1F42E8A-6386-4195-9C4C-AA5B0FFA4F4B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{E5E003CB-2562-4261-AD4F-1D0DC3DB8517}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sqlite", "sqlite-net-wp8\Sqlite.vcxproj", "{59B35F6C-E062-4F0E-88D8-13F3F82A24F3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,6 +53,7 @@ Global
 		Debug|iPhone = Debug|iPhone
 		Debug|iPhoneSimulator = Debug|iPhoneSimulator
 		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|Win32 = Debug|Win32
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
@@ -49,6 +61,7 @@ Global
 		Release|iPhone = Release|iPhone
 		Release|iPhoneSimulator = Release|iPhoneSimulator
 		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|Win32 = Release|Win32
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
@@ -114,6 +127,7 @@ Global
 		{4D6572A6-628A-4C50-9056-D3A9A42C8D7F}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
 		{4D6572A6-628A-4C50-9056-D3A9A42C8D7F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{4D6572A6-628A-4C50-9056-D3A9A42C8D7F}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{4D6572A6-628A-4C50-9056-D3A9A42C8D7F}.Debug|Win32.ActiveCfg = Debug|Any CPU
 		{4D6572A6-628A-4C50-9056-D3A9A42C8D7F}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{4D6572A6-628A-4C50-9056-D3A9A42C8D7F}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{4D6572A6-628A-4C50-9056-D3A9A42C8D7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -123,6 +137,7 @@ Global
 		{4D6572A6-628A-4C50-9056-D3A9A42C8D7F}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{4D6572A6-628A-4C50-9056-D3A9A42C8D7F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{4D6572A6-628A-4C50-9056-D3A9A42C8D7F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{4D6572A6-628A-4C50-9056-D3A9A42C8D7F}.Release|Win32.ActiveCfg = Release|Any CPU
 		{4D6572A6-628A-4C50-9056-D3A9A42C8D7F}.Release|x64.ActiveCfg = Release|Any CPU
 		{4D6572A6-628A-4C50-9056-D3A9A42C8D7F}.Release|x86.ActiveCfg = Release|Any CPU
 		{654E3C62-163F-430C-AE77-75E5B569722A}.Ad-Hoc|Any CPU.ActiveCfg = Release|x86
@@ -154,6 +169,8 @@ Global
 		{654E3C62-163F-430C-AE77-75E5B569722A}.Debug|iPhoneSimulator.ActiveCfg = Debug|x86
 		{654E3C62-163F-430C-AE77-75E5B569722A}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
 		{654E3C62-163F-430C-AE77-75E5B569722A}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{654E3C62-163F-430C-AE77-75E5B569722A}.Debug|Win32.ActiveCfg = Debug|x86
+		{654E3C62-163F-430C-AE77-75E5B569722A}.Debug|Win32.Build.0 = Debug|x86
 		{654E3C62-163F-430C-AE77-75E5B569722A}.Debug|x64.ActiveCfg = Debug|x64
 		{654E3C62-163F-430C-AE77-75E5B569722A}.Debug|x64.Build.0 = Debug|x64
 		{654E3C62-163F-430C-AE77-75E5B569722A}.Debug|x86.ActiveCfg = Debug|x86
@@ -165,6 +182,8 @@ Global
 		{654E3C62-163F-430C-AE77-75E5B569722A}.Release|iPhoneSimulator.ActiveCfg = Release|x86
 		{654E3C62-163F-430C-AE77-75E5B569722A}.Release|Mixed Platforms.ActiveCfg = Release|x86
 		{654E3C62-163F-430C-AE77-75E5B569722A}.Release|Mixed Platforms.Build.0 = Release|x86
+		{654E3C62-163F-430C-AE77-75E5B569722A}.Release|Win32.ActiveCfg = Release|x86
+		{654E3C62-163F-430C-AE77-75E5B569722A}.Release|Win32.Build.0 = Release|x86
 		{654E3C62-163F-430C-AE77-75E5B569722A}.Release|x64.ActiveCfg = Release|x64
 		{654E3C62-163F-430C-AE77-75E5B569722A}.Release|x64.Build.0 = Release|x64
 		{654E3C62-163F-430C-AE77-75E5B569722A}.Release|x86.ActiveCfg = Release|x86
@@ -371,24 +390,10 @@ Global
 		{E043D17C-221A-41CB-BC75-1D48D5AD0B11}.AppStore|x64.ActiveCfg = Release|Any CPU
 		{E043D17C-221A-41CB-BC75-1D48D5AD0B11}.AppStore|x86.ActiveCfg = Release|x86
 		{E043D17C-221A-41CB-BC75-1D48D5AD0B11}.AppStore|x86.Build.0 = Release|x86
-		{E043D17C-221A-41CB-BC75-1D48D5AD0B11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E043D17C-221A-41CB-BC75-1D48D5AD0B11}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E043D17C-221A-41CB-BC75-1D48D5AD0B11}.Debug|ARM.ActiveCfg = Debug|Any CPU
 		{E043D17C-221A-41CB-BC75-1D48D5AD0B11}.Debug|iPhone.ActiveCfg = Debug|Any CPU
 		{E043D17C-221A-41CB-BC75-1D48D5AD0B11}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{E043D17C-221A-41CB-BC75-1D48D5AD0B11}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{E043D17C-221A-41CB-BC75-1D48D5AD0B11}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{E043D17C-221A-41CB-BC75-1D48D5AD0B11}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{E043D17C-221A-41CB-BC75-1D48D5AD0B11}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{E043D17C-221A-41CB-BC75-1D48D5AD0B11}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E043D17C-221A-41CB-BC75-1D48D5AD0B11}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E043D17C-221A-41CB-BC75-1D48D5AD0B11}.Release|ARM.ActiveCfg = Release|Any CPU
 		{E043D17C-221A-41CB-BC75-1D48D5AD0B11}.Release|iPhone.ActiveCfg = Release|Any CPU
 		{E043D17C-221A-41CB-BC75-1D48D5AD0B11}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
-		{E043D17C-221A-41CB-BC75-1D48D5AD0B11}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{E043D17C-221A-41CB-BC75-1D48D5AD0B11}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{E043D17C-221A-41CB-BC75-1D48D5AD0B11}.Release|x64.ActiveCfg = Release|Any CPU
-		{E043D17C-221A-41CB-BC75-1D48D5AD0B11}.Release|x86.ActiveCfg = Release|Any CPU
 		{E7909D1D-415A-4E35-8A08-8970BA605F2F}.Ad-Hoc|Any CPU.ActiveCfg = Release|Any CPU
 		{E7909D1D-415A-4E35-8A08-8970BA605F2F}.Ad-Hoc|Any CPU.Build.0 = Release|Any CPU
 		{E7909D1D-415A-4E35-8A08-8970BA605F2F}.Ad-Hoc|ARM.ActiveCfg = Release|Any CPU
@@ -433,6 +438,36 @@ Global
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Sqlite\Cirrious.MvvmCross.Community.Plugins.Sqlite\Cirrious.MvvmCross.Community.Plugins.Sqlite.csproj
+		{12A0A760-10DB-4D3B-A8B3-FA034BC7E091}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{12A0A760-10DB-4D3B-A8B3-FA034BC7E091}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{12A0A760-10DB-4D3B-A8B3-FA034BC7E091}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12A0A760-10DB-4D3B-A8B3-FA034BC7E091}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12A0A760-10DB-4D3B-A8B3-FA034BC7E091}.Release|ARM.ActiveCfg = Release|Any CPU
+		{12A0A760-10DB-4D3B-A8B3-FA034BC7E091}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{12A0A760-10DB-4D3B-A8B3-FA034BC7E091}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{12A0A760-10DB-4D3B-A8B3-FA034BC7E091}.Release|Win32.ActiveCfg = Release|Any CPU
+		{12A0A760-10DB-4D3B-A8B3-FA034BC7E091}.Release|x64.ActiveCfg = Release|Any CPU
+		{12A0A760-10DB-4D3B-A8B3-FA034BC7E091}.Release|x86.ActiveCfg = Release|Any CPU
+		{59B35F6C-E062-4F0E-88D8-13F3F82A24F3}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{59B35F6C-E062-4F0E-88D8-13F3F82A24F3}.Debug|ARM.ActiveCfg = Debug|ARM
+		{59B35F6C-E062-4F0E-88D8-13F3F82A24F3}.Debug|ARM.Build.0 = Debug|ARM
+		{59B35F6C-E062-4F0E-88D8-13F3F82A24F3}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{59B35F6C-E062-4F0E-88D8-13F3F82A24F3}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{59B35F6C-E062-4F0E-88D8-13F3F82A24F3}.Debug|Win32.ActiveCfg = Debug|Win32
+		{59B35F6C-E062-4F0E-88D8-13F3F82A24F3}.Debug|Win32.Build.0 = Debug|Win32
+		{59B35F6C-E062-4F0E-88D8-13F3F82A24F3}.Debug|x64.ActiveCfg = Debug|Win32
+		{59B35F6C-E062-4F0E-88D8-13F3F82A24F3}.Debug|x86.ActiveCfg = Debug|Win32
+		{59B35F6C-E062-4F0E-88D8-13F3F82A24F3}.Debug|x86.Build.0 = Debug|Win32
+		{59B35F6C-E062-4F0E-88D8-13F3F82A24F3}.Release|Any CPU.ActiveCfg = Release|Win32
+		{59B35F6C-E062-4F0E-88D8-13F3F82A24F3}.Release|ARM.ActiveCfg = Release|ARM
+		{59B35F6C-E062-4F0E-88D8-13F3F82A24F3}.Release|ARM.Build.0 = Release|ARM
+		{59B35F6C-E062-4F0E-88D8-13F3F82A24F3}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{59B35F6C-E062-4F0E-88D8-13F3F82A24F3}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{59B35F6C-E062-4F0E-88D8-13F3F82A24F3}.Release|Win32.ActiveCfg = Release|Win32
+		{59B35F6C-E062-4F0E-88D8-13F3F82A24F3}.Release|Win32.Build.0 = Release|Win32
+		{59B35F6C-E062-4F0E-88D8-13F3F82A24F3}.Release|x64.ActiveCfg = Release|Win32
+		{59B35F6C-E062-4F0E-88D8-13F3F82A24F3}.Release|x86.ActiveCfg = Release|Win32
+		{59B35F6C-E062-4F0E-88D8-13F3F82A24F3}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
