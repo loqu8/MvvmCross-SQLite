@@ -73,6 +73,12 @@
       <Name>Cirrious.MvvmCross.Community.Plugins.Sqlite</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\Library\Sqlite3\sqlite3.dll">
+      <Link>sqlite3.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>xcopy /Y "$(SolutionDir)Library\Sqlite3\sqlite3.dll" $(TargetDir)</PreBuildEvent>
