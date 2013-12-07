@@ -14,13 +14,6 @@
 		<dependencies>
 		  <dependency id="MvvmCross.HotTuna.Mac.CrossCore" version="3.1.1" />
 		</dependencies>
-		<references>
-			<group targetFramework="wp80">
-				<reference file="Cirrious.MvvmCross.Community.Plugins.Sqlite.dll" />
-				<reference file="Cirrious.MvvmCross.Community.Plugins.Sqlite.WindowsPhone.dll" />
-				<reference file="Sqlite.winmd" />
-			</group>
-		</references>
 	</metadata>
 	<files>		
 		<!-- PCL -->
