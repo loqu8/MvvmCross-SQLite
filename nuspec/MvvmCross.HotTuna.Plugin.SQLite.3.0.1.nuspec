@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
 	<metadata>
 		<id>MvvmCross.Community.Plugin.Sqlite</id>
-		<version> 3.0.13</version>
+		<version>3.1.13</version>
 		<title>MvvmCross - Community SQLite-Net Plugin</title>
 		<authors>MvvmCross</authors>
 		<owners>Stuart Lodge</owners>
@@ -13,7 +13,14 @@
 		<tags>mvvm mvvmcross xamarin monodroid monotouch wpf windows8 winrt netcore wp wpdev windowsphone</tags>
 		<dependencies>
 		  <dependency id="MvvmCross.HotTuna.CrossCore" version="3.1.1" />
-		</dependencies>
+		</dependencies>	
+		<references>
+			<group targetFramework="wp80">
+				<reference file="Cirrious.MvvmCross.Community.Plugins.Sqlite.dll" />
+				<reference file="Cirrious.MvvmCross.Community.Plugins.Sqlite.WindowsPhone.dll" />
+				<reference file="Sqlite.winmd" />
+			</group>
+		</references>
 	</metadata>
 	<files>		
 		<!-- PCL -->
@@ -36,7 +43,9 @@
 			<file src="..\bin\Release\Mvx\WindowsPhone\x86\Cirrious.MvvmCross.Community.Plugins.Sqlite.WindowsPhone.dll" target="lib\wp80\x86\Cirrious.MvvmCross.Community.Plugins.Sqlite.WindowsPhone.dll" />
 			<file src="..\bin\Release\Mvx\WindowsPhone\ARM\Cirrious.MvvmCross.Community.Plugins.Sqlite.WindowsPhone.dll" target="lib\wp80\ARM\Cirrious.MvvmCross.Community.Plugins.Sqlite.WindowsPhone.dll" />
 			<file src="..\bin\Release\Mvx\WindowsPhone\x86\Sqlite.dll" target="lib\wp80\x86\Sqlite.dll" />
-			<file src="..\bin\Release\Mvx\WindowsPhone\ARM\Sqlite.dll" target="lib\wp80\ARM\Sqlite.dll" />			
+			<file src="..\bin\Release\Mvx\WindowsPhone\x86\Sqlite.winmd" target="lib\wp80\x86\Sqlite.winmd" />
+			<file src="..\bin\Release\Mvx\WindowsPhone\ARM\Sqlite.dll" target="lib\wp80\ARM\Sqlite.dll" />
+			<file src="..\bin\Release\Mvx\WindowsPhone\ARM\Sqlite.winmd" target="lib\wp80\ARM\Sqlite.winmd" />
 			<file src="BootstrapContent\CommunitySqlitePluginBootstrap.cs.pp" target="content\wp80\Bootstrap\CommunitySqlitePluginBootstrap.cs.pp" />
 	
 		<!-- droid -->
