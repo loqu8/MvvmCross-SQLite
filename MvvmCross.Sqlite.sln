@@ -32,6 +32,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{E5E003
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sqlite", "sqlite-net-wp8\Sqlite.vcxproj", "{59B35F6C-E062-4F0E-88D8-13F3F82A24F3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cirrious.MvvmCross.Community.Plugins.Sqlite.XamMac", "Sqlite\Cirrious.MvvmCross.Community.Plugins.Sqlite.XamMac\Cirrious.MvvmCross.Community.Plugins.Sqlite.XamMac.csproj", "{70103380-740F-4B7F-8E8F-D99CDF0AF9FF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU
@@ -574,6 +576,46 @@ Global
 		{59B35F6C-E062-4F0E-88D8-13F3F82A24F3}.Release|x64.ActiveCfg = Release|Win32
 		{59B35F6C-E062-4F0E-88D8-13F3F82A24F3}.Release|x86.ActiveCfg = Release|Win32
 		{59B35F6C-E062-4F0E-88D8-13F3F82A24F3}.Release|x86.Build.0 = Release|Win32
+		{70103380-740F-4B7F-8E8F-D99CDF0AF9FF}.Ad-Hoc|Any CPU.ActiveCfg = Release|Any CPU
+		{70103380-740F-4B7F-8E8F-D99CDF0AF9FF}.Ad-Hoc|Any CPU.Build.0 = Release|Any CPU
+		{70103380-740F-4B7F-8E8F-D99CDF0AF9FF}.Ad-Hoc|ARM.ActiveCfg = Release|Any CPU
+		{70103380-740F-4B7F-8E8F-D99CDF0AF9FF}.Ad-Hoc|iPhone.ActiveCfg = Release|Any CPU
+		{70103380-740F-4B7F-8E8F-D99CDF0AF9FF}.Ad-Hoc|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{70103380-740F-4B7F-8E8F-D99CDF0AF9FF}.Ad-Hoc|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{70103380-740F-4B7F-8E8F-D99CDF0AF9FF}.Ad-Hoc|Mixed Platforms.Build.0 = Release|Any CPU
+		{70103380-740F-4B7F-8E8F-D99CDF0AF9FF}.Ad-Hoc|Win32.ActiveCfg = Release|Any CPU
+		{70103380-740F-4B7F-8E8F-D99CDF0AF9FF}.Ad-Hoc|x64.ActiveCfg = Release|Any CPU
+		{70103380-740F-4B7F-8E8F-D99CDF0AF9FF}.Ad-Hoc|x86.ActiveCfg = Release|Any CPU
+		{70103380-740F-4B7F-8E8F-D99CDF0AF9FF}.AppStore|Any CPU.ActiveCfg = Release|Any CPU
+		{70103380-740F-4B7F-8E8F-D99CDF0AF9FF}.AppStore|Any CPU.Build.0 = Release|Any CPU
+		{70103380-740F-4B7F-8E8F-D99CDF0AF9FF}.AppStore|ARM.ActiveCfg = Release|Any CPU
+		{70103380-740F-4B7F-8E8F-D99CDF0AF9FF}.AppStore|iPhone.ActiveCfg = Release|Any CPU
+		{70103380-740F-4B7F-8E8F-D99CDF0AF9FF}.AppStore|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{70103380-740F-4B7F-8E8F-D99CDF0AF9FF}.AppStore|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{70103380-740F-4B7F-8E8F-D99CDF0AF9FF}.AppStore|Mixed Platforms.Build.0 = Release|Any CPU
+		{70103380-740F-4B7F-8E8F-D99CDF0AF9FF}.AppStore|Win32.ActiveCfg = Release|Any CPU
+		{70103380-740F-4B7F-8E8F-D99CDF0AF9FF}.AppStore|x64.ActiveCfg = Release|Any CPU
+		{70103380-740F-4B7F-8E8F-D99CDF0AF9FF}.AppStore|x86.ActiveCfg = Release|Any CPU
+		{70103380-740F-4B7F-8E8F-D99CDF0AF9FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70103380-740F-4B7F-8E8F-D99CDF0AF9FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70103380-740F-4B7F-8E8F-D99CDF0AF9FF}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{70103380-740F-4B7F-8E8F-D99CDF0AF9FF}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{70103380-740F-4B7F-8E8F-D99CDF0AF9FF}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{70103380-740F-4B7F-8E8F-D99CDF0AF9FF}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{70103380-740F-4B7F-8E8F-D99CDF0AF9FF}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{70103380-740F-4B7F-8E8F-D99CDF0AF9FF}.Debug|Win32.ActiveCfg = Debug|Any CPU
+		{70103380-740F-4B7F-8E8F-D99CDF0AF9FF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{70103380-740F-4B7F-8E8F-D99CDF0AF9FF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{70103380-740F-4B7F-8E8F-D99CDF0AF9FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70103380-740F-4B7F-8E8F-D99CDF0AF9FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70103380-740F-4B7F-8E8F-D99CDF0AF9FF}.Release|ARM.ActiveCfg = Release|Any CPU
+		{70103380-740F-4B7F-8E8F-D99CDF0AF9FF}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{70103380-740F-4B7F-8E8F-D99CDF0AF9FF}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{70103380-740F-4B7F-8E8F-D99CDF0AF9FF}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{70103380-740F-4B7F-8E8F-D99CDF0AF9FF}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{70103380-740F-4B7F-8E8F-D99CDF0AF9FF}.Release|Win32.ActiveCfg = Release|Any CPU
+		{70103380-740F-4B7F-8E8F-D99CDF0AF9FF}.Release|x64.ActiveCfg = Release|Any CPU
+		{70103380-740F-4B7F-8E8F-D99CDF0AF9FF}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
