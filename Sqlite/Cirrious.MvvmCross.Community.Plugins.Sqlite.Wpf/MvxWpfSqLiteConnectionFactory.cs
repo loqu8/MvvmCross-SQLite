@@ -15,6 +15,11 @@ namespace Cirrious.MvvmCross.Community.Plugins.Sqlite.Wpf
     public class MvxWpfSqLiteConnectionFactory
         : MvxBaseSQLiteConnectionFactory
     {
+        public override void Activate(string passPhrase)
+        {
+            SQLite3.Activate(passPhrase);
+        }
+
         protected override string GetDefaultBasePath()
         {
             return Directory.GetCurrentDirectory();

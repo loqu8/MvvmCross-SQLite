@@ -26,7 +26,8 @@ namespace Cirrious.MvvmCross.Community.Plugins.Sqlite
 		    // we want the default to be Ticks - see https://github.com/slodge/MvvmCross/issues/213#issuecomment-24610834
 			StoreDateTimeAsTicks = true;        
 		}
-		/// <summary>
+
+ 		/// <summary>
 		/// The name of the database file.
 		/// </summary>
         public string Address { get; set; }
@@ -138,6 +139,15 @@ namespace Cirrious.MvvmCross.Community.Plugins.Sqlite
         /// </remarks>
         /// <returns>A ISQLiteConnection to a temporary database.</returns>
         ISQLiteConnection CreateTemp();
+
+
+        /// <summary>
+        /// Enable CEROD and SEE if available
+        /// </summary>
+        /// <param name="passPhrase">
+        /// The passPhrase
+        /// </param>
+        void Activate(string passPhrase);
     }
 
     [Flags]
@@ -964,6 +974,14 @@ namespace Cirrious.MvvmCross.Community.Plugins.Sqlite
         {
             return CreateSQLiteConnection(string.Empty, options.StoreDateTimeAsTicks);
         }
+
+        /// <summary>
+        /// Enable CEROD and SEE if available
+        /// </summary>
+        /// <param name="passPhrase">
+        /// The passPhrase
+        /// </param>
+        public abstract void Activate(string passPhrase);
 
         /// <summary>
         /// Returns the platform specific default base path1.

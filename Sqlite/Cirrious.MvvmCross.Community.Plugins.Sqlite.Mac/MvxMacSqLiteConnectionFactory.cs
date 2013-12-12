@@ -14,6 +14,11 @@ namespace Cirrious.MvvmCross.Community.Plugins.Sqlite.Mac
     public class MvxMacSqLiteConnectionFactory
         : MvxBaseSQLiteConnectionFactory, ISQLiteConnectionFactory
     {
+        public override void Activate(string passPhrase)
+        {
+            SQLite3.Activate(passPhrase);
+        }
+
         protected override string GetDefaultBasePath()
         {
             return Environment.GetFolderPath(Environment.SpecialFolder.Personal);

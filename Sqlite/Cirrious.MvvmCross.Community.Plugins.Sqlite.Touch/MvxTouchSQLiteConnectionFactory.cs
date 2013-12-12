@@ -15,6 +15,11 @@ namespace Cirrious.MvvmCross.Community.Plugins.Sqlite.Touch
     public class MvxTouchSQLiteConnectionFactory
         : MvxBaseSQLiteConnectionFactory
     {
+        public override void Activate(string passPhrase)
+        {
+            SQLite3.Activate(passPhrase);
+        }
+
         protected override string GetDefaultBasePath()
         {
             return Environment.GetFolderPath(Environment.SpecialFolder.Personal);
