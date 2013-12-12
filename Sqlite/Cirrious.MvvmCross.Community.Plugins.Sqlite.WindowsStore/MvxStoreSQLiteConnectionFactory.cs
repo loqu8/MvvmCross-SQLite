@@ -14,6 +14,11 @@ namespace Cirrious.MvvmCross.Community.Plugins.Sqlite.WindowsStore
     public class MvxStoreSQLiteConnectionFactory
         : MvxBaseSQLiteConnectionFactory
     {
+        public override void Activate(string passPhrase)
+        {
+            SQLite3.Activate(passPhrase);
+        }
+
         private ISQLiteConnection CreateTempDb(SQLiteConnectionOptions options)
         {
             return new SQLiteConnection(string.Empty, new SQLiteConnectionOptions().StoreDateTimeAsTicks);

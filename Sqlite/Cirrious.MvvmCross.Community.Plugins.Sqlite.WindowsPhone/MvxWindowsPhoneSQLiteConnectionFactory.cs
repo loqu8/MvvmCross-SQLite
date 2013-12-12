@@ -14,6 +14,11 @@ namespace Cirrious.MvvmCross.Community.Plugins.Sqlite.WindowsPhone
     public class MvxWindowsPhoneSQLiteConnectionFactory
         : MvxBaseSQLiteConnectionFactory
     {
+        public override void Activate(string passPhrase)
+        {
+            SQLite3.Activate(passPhrase);
+        }
+
         protected override string GetDefaultBasePath()
         {
             return string.Empty;

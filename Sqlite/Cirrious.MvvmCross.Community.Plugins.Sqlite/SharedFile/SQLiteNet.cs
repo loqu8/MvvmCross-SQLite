@@ -1989,6 +1989,11 @@ namespace Community.SQLite
             return ExecuteDeferredQuery<T>(map).ToList();
         }
 
+        public IEnumerable<Dictionary<string, object>> ExecuteQuery()
+        {
+            return ExecuteDeferredQuery();
+        }
+
         /// <summary>
         /// Invoked every time an instance is loaded from the database.
         /// </summary>
