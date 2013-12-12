@@ -66,20 +66,22 @@ using Sqlite3Statement = System.IntPtr;
 
 namespace Community.SQLite
 {
-    public class SQLiteException : Exception
-    {
-        public SQLite3.Result Result { get; private set; }
+    // Define SQLiteException in BaseClasses.cs
+    //public class SQLiteException : Exception
+    //{
+    //    public SQLiteResult Result { get; private set; }
 
-		protected SQLiteException (SQLite3.Result r,string message) : base(message)
-        {
-            Result = r;
-        }
+    //    protected SQLiteException(SQLiteResult r, string message)
+    //        : base(message)
+    //    {
+    //        Result = r;
+    //    }
 
-        public static SQLiteException New(SQLite3.Result r, string message)
-        {
-            return new SQLiteException(r, message);
-        }
-    }
+    //    public static SQLiteException New(SQLiteResult r, string message)
+    //    {
+    //        return new SQLiteException(r, message);
+    //    }
+    //}
 
     [Flags]
 	public enum SQLiteOpenFlags {
@@ -185,7 +187,7 @@ namespace Community.SQLite
 #endif
 
             Handle = handle;
-			if (r != SQLite3.Result.OK) {
+			if (r != SQLiteResult.OK) {
                 throw SQLiteException.New(r, String.Format("Could not open database file: {0} ({1})", DatabasePath, r));
             }
             _open = true;
@@ -205,8 +207,8 @@ namespace Community.SQLite
 
         public void EnableLoadExtension(int onoff)
         {
-            SQLite3.Result r = SQLite3.EnableLoadExtension(Handle, onoff);
-			if (r != SQLite3.Result.OK) {
+            SQLiteResult r = SQLite3.EnableLoadExtension(Handle, onoff);
+			if (r != SQLiteResult.OK) {
                 string msg = SQLite3.GetErrmsg(Handle);
                 throw SQLiteException.New(r, msg);
             }
@@ -537,7 +539,7 @@ namespace Community.SQLite
         public ISQLiteCommand CreateCommand(string cmdText, params object[] ps)
         {
             if (!_open)
-                throw SQLiteException.New(SQLite3.Result.Error, "Cannot create commands from unopened database");
+                throw SQLiteException.New(SQLiteResult.Error, "Cannot create commands from unopened database");
 
             var cmd = NewCommand();
             cmd.CommandText = cmdText;
@@ -850,11 +852,11 @@ namespace Community.SQLite
                         // by explicitly issuing a ROLLBACK command.
                         // TODO: This rollback failsafe should be localized to all throw sites.
 						switch (sqlExp.Result) {
-                            case SQLite3.Result.IOError:
-                            case SQLite3.Result.Full:
-                            case SQLite3.Result.Busy:
-                            case SQLite3.Result.NoMem:
-                            case SQLite3.Result.Interrupt:
+                            case SQLiteResult.IOError:
+                            case SQLiteResult.Full:
+                            case SQLiteResult.Busy:
+                            case SQLiteResult.NoMem:
+                            case SQLiteResult.Interrupt:
                                 RollbackTo(null, true);
                                 break;
                         }
@@ -895,11 +897,11 @@ namespace Community.SQLite
                     // by explicitly issuing a ROLLBACK command.
                     // TODO: This rollback failsafe should be localized to all throw sites.
 					switch (sqlExp.Result) {
-                        case SQLite3.Result.IOError:
-                        case SQLite3.Result.Full:
-                        case SQLite3.Result.Busy:
-                        case SQLite3.Result.NoMem:
-                        case SQLite3.Result.Interrupt:
+                        case SQLiteResult.IOError:
+                        case SQLiteResult.Full:
+                        case SQLiteResult.Busy:
+                        case SQLiteResult.NoMem:
+                        case SQLiteResult.Interrupt:
                             RollbackTo(null, true);
                             break;
                     }
@@ -1434,7 +1436,7 @@ namespace Community.SQLite
                         }
                     }
                     var r = SQLite3.Close(Handle);
-					if (r != SQLite3.Result.OK) {
+					if (r != SQLiteResult.OK) {
                         string msg = SQLite3.GetErrmsg(Handle);
                         throw SQLiteException.New(r, msg);
                     }
@@ -1930,10 +1932,10 @@ namespace Community.SQLite
         private int stepNonQuery(Sqlite3Statement stmt)
         {
             var r = SQLite3.Step(stmt);
-			if (r == SQLite3.Result.Done) {
+			if (r == SQLiteResult.Done) {
 				int rowsAffected = SQLite3.Changes (_conn.Handle);
 				return rowsAffected;
-			} else if (r == SQLite3.Result.Error) {
+			} else if (r == SQLiteResult.Error) {
 				string msg = SQLite3.GetErrmsg (_conn.Handle);
 				throw SQLiteException.New (r, msg);
 			} else {
@@ -2035,7 +2037,7 @@ namespace Community.SQLite
 		                    cols[i] = ((TableMapping)map).FindColumn(name);
 		                }
 		
-						while (SQLite3.Step (stmt) == SQLite3.Result.Row) {
+						while (SQLite3.Step (stmt) == SQLiteResult.Row) {
 		                    var obj = Activator.CreateInstance(((TableMapping)map).MappedType);
 							for (int i = 0; i < cols.Length; i++) {
 		                        if (cols[i] == null)
@@ -2082,7 +2084,7 @@ namespace Community.SQLite
                             cols[i] = name;
                         }
 
-                        while (SQLite3.Step(stmt) == SQLite3.Result.Row) {
+                        while (SQLite3.Step(stmt) == SQLiteResult.Row) {
                             var obj = new Dictionary<string, object>();
                             for (int i = 0; i < cols.Length; i++) {
                                 var colType = SQLite3.ColumnType(stmt, i);
@@ -2144,11 +2146,11 @@ namespace Community.SQLite
 					var colcount = SQLite3.ColumnCount(stmt);
 	                if (colcount > 0) {		
 		                var r = SQLite3.Step(stmt);
-		                if (r == SQLite3.Result.Row) {
+		                if (r == SQLiteResult.Row) {
 		                    var colType = SQLite3.ColumnType(stmt, 0);
 		                    val = (T)ReadCol(stmt, 0, colType, typeof(T));
 		                }
-		                else if (r == SQLite3.Result.Done) {
+		                else if (r == SQLiteResult.Done) {
 		                }
 		                else
 		                {
@@ -2387,7 +2389,7 @@ namespace Community.SQLite
 				Debug.WriteLine ("Executing: " + this.ToString());  // CommandText doesn't show the bound parameters, but ToString does
             }
 
-            var r = SQLite3.Result.OK;
+            var r = SQLiteResult.OK;
             remainingText = CommandText.Trim().TrimEnd(';');
 
 			if (!Initialized) {
@@ -2403,11 +2405,11 @@ namespace Community.SQLite
             }
             r = SQLite3.Step(Statement);
 
-			if (r == SQLite3.Result.Done) {
+			if (r == SQLiteResult.Done) {
                 int rowsAffected = SQLite3.Changes(Connection.Handle);
                 SQLite3.Reset(Statement);
                 return rowsAffected;
-			} else if (r == SQLite3.Result.Error) {
+			} else if (r == SQLiteResult.Error) {
                 string msg = SQLite3.GetErrmsg(Connection.Handle);
                 SQLite3.Reset(Statement);
                 throw SQLiteException.New(r, msg);
@@ -2927,38 +2929,39 @@ namespace Community.SQLite
 
     public static class SQLite3
     {
-        public enum Result : int
-        {
-            OK = 0,
-            Error = 1,
-            Internal = 2,
-            Perm = 3,
-            Abort = 4,
-            Busy = 5,
-            Locked = 6,
-            NoMem = 7,
-            ReadOnly = 8,
-            Interrupt = 9,
-            IOError = 10,
-            Corrupt = 11,
-            NotFound = 12,
-            Full = 13,
-            CannotOpen = 14,
-            LockErr = 15,
-            Empty = 16,
-            SchemaChngd = 17,
-            TooBig = 18,
-            Constraint = 19,
-            Mismatch = 20,
-            Misuse = 21,
-            NotImplementedLFS = 22,
-            AccessDenied = 23,
-            Format = 24,
-            Range = 25,
-            NonDBFile = 26,
-            Row = 100,
-            Done = 101
-        }
+        // Define SQLiteResult in BaseClasses.cs
+        //public enum Result : int
+        //{
+        //    OK = 0,
+        //    Error = 1,
+        //    Internal = 2,
+        //    Perm = 3,
+        //    Abort = 4,
+        //    Busy = 5,
+        //    Locked = 6,
+        //    NoMem = 7,
+        //    ReadOnly = 8,
+        //    Interrupt = 9,
+        //    IOError = 10,
+        //    Corrupt = 11,
+        //    NotFound = 12,
+        //    Full = 13,
+        //    CannotOpen = 14,
+        //    LockErr = 15,
+        //    Empty = 16,
+        //    SchemaChngd = 17,
+        //    TooBig = 18,
+        //    Constraint = 19,
+        //    Mismatch = 20,
+        //    Misuse = 21,
+        //    NotImplementedLFS = 22,
+        //    AccessDenied = 23,
+        //    Format = 24,
+        //    Range = 25,
+        //    NonDBFile = 26,
+        //    Row = 100,
+        //    Done = 101
+        //}
 
         public enum ConfigOption : int
         {
@@ -2970,13 +2973,13 @@ namespace Community.SQLite
 #if !USE_CSHARP_SQLITE
 public static void Activate(string passPhrase)
 {
-    if (!string.IsNullOrEmpty(passPhrase))
-    {
-        byte[] passPhraseBytes = UTF8Encoding.UTF8.GetBytes(passPhrase);
+        if (!string.IsNullOrEmpty(passPhrase))
+        {
+            byte[] passPhraseBytes = UTF8Encoding.UTF8.GetBytes(passPhrase);
     
-        Activate_Cerod(passPhraseBytes);
-        Activate_See(passPhraseBytes);
-    }
+            Activate_Cerod(passPhraseBytes);
+            Activate_See(passPhraseBytes);
+        }
 }
 
 #region From System.Data.SQLite SQLiteConvert.cs
@@ -3042,37 +3045,37 @@ internal static extern void Activate_Cerod(byte[] passPhrase);
 internal static extern void Activate_See(byte[] passPhrase);
 
 [DllImport("sqlite3", EntryPoint = "sqlite3_open", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Result Open([MarshalAs(UnmanagedType.LPStr)] string filename, out IntPtr db);
+        public static extern SQLiteResult Open([MarshalAs(UnmanagedType.LPStr)] string filename, out IntPtr db);
 
 [DllImport("sqlite3", EntryPoint = "sqlite3_open_v2", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Result Open([MarshalAs(UnmanagedType.LPStr)] string filename, out IntPtr db, int flags, IntPtr zvfs);
+        public static extern SQLiteResult Open([MarshalAs(UnmanagedType.LPStr)] string filename, out IntPtr db, int flags, IntPtr zvfs);
 
 [DllImport("sqlite3", EntryPoint = "sqlite3_open_v2", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Result Open(byte[] filename, out IntPtr db, int flags, IntPtr zvfs);
+        public static extern SQLiteResult Open(byte[] filename, out IntPtr db, int flags, IntPtr zvfs);
 
 [DllImport("sqlite3", EntryPoint = "sqlite3_open16", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Result Open16([MarshalAs(UnmanagedType.LPWStr)] string filename, out IntPtr db);
+        public static extern SQLiteResult Open16([MarshalAs(UnmanagedType.LPWStr)] string filename, out IntPtr db);
 
 [DllImport("sqlite3", EntryPoint = "sqlite3_enable_load_extension", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Result EnableLoadExtension(IntPtr db, int onoff);
+        public static extern SQLiteResult EnableLoadExtension(IntPtr db, int onoff);
 
 [DllImport("sqlite3", EntryPoint = "sqlite3_close", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Result Close(IntPtr db);
+        public static extern SQLiteResult Close(IntPtr db);
 
 [DllImport("sqlite3", EntryPoint = "sqlite3_config", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Result Config(ConfigOption option);
+        public static extern SQLiteResult Config(ConfigOption option);
 
 [DllImport("sqlite3", EntryPoint = "sqlite3_win32_set_directory", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         public static extern int SetDirectory(uint directoryType, string directoryPath);
 
 [DllImport("sqlite3", EntryPoint = "sqlite3_busy_timeout", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Result BusyTimeout(IntPtr db, int milliseconds);
+        public static extern SQLiteResult BusyTimeout(IntPtr db, int milliseconds);
 
 [DllImport("sqlite3", EntryPoint = "sqlite3_changes", CallingConvention = CallingConvention.Cdecl)]
         public static extern int Changes(IntPtr db);
 
 [DllImport("sqlite3", EntryPoint = "sqlite3_prepare_v2", CallingConvention = CallingConvention.Cdecl)]
-		public static extern Result Prepare2 (IntPtr db, IntPtr pSql, int numBytes, out IntPtr stmt, out IntPtr pzTail);
+		public static extern SQLiteResult Prepare2 (IntPtr db, IntPtr pSql, int numBytes, out IntPtr stmt, out IntPtr pzTail);
 
 		//int sqlite3_prepare_v2(
         //  sqlite3 *db,            /* Database handle */
@@ -3098,7 +3101,7 @@ internal static extern void Activate_See(byte[] passPhrase);
             IntPtr pzTail;
 			var r = Prepare2 (db, pSql, b.Length - 1, out stmt, out pzTail);
             var queryTail = UTF8ToString(pzTail, -1); // If error happens, need original 'query' value
-			if (r != Result.OK) {
+			if (r != SQLiteResult.OK) {
                 var errMsg = "Exception in 'Prepare2' (SQLite.cs) for query:\n" + query;
                 Debug.WriteLine(errMsg);
                 //Debug.WriteLine("=============================================================");
@@ -3112,13 +3115,13 @@ internal static extern void Activate_See(byte[] passPhrase);
         }
 
 [DllImport("sqlite3", EntryPoint = "sqlite3_step", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Result Step(IntPtr stmt);
+        public static extern SQLiteResult Step(IntPtr stmt);
 
 [DllImport("sqlite3", EntryPoint = "sqlite3_reset", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Result Reset(IntPtr stmt);
+        public static extern SQLiteResult Reset(IntPtr stmt);
 
 [DllImport("sqlite3", EntryPoint = "sqlite3_finalize", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Result Finalize(IntPtr stmt);
+        public static extern SQLiteResult Finalize(IntPtr stmt);
 
 [DllImport("sqlite3", EntryPoint = "sqlite3_last_insert_rowid", CallingConvention = CallingConvention.Cdecl)]
         public static extern long LastInsertRowid(IntPtr db);
@@ -3217,42 +3220,42 @@ internal static extern void Activate_See(byte[] passPhrase);
 #endif
         }
 
-        public static Result Open(string filename, out Sqlite3DatabaseHandle db)
+        public static SQLiteResult Open(string filename, out Sqlite3DatabaseHandle db)
         {
 #if USE_CSHARP_SQLITE
             Sqlite3.sqlite3 database = new Sqlite3DatabaseHandle();
-            var toReturn = (Result)Sqlite3.sqlite3_open(filename, ref database);
+            var toReturn = (SQLiteResult)Sqlite3.sqlite3_open(filename, ref database);
             db = database;
             return toReturn;
 #else
-            return (Result)Sqlite3.sqlite3_open(filename, out db);
+            return (SQLiteResult)Sqlite3.sqlite3_open(filename, out db);
 #endif
         }
 
-        public static Result Open(string filename, out Sqlite3DatabaseHandle db, int flags, IntPtr zVfs)
+        public static SQLiteResult Open(string filename, out Sqlite3DatabaseHandle db, int flags, IntPtr zVfs)
         {
 #if USE_WP8_NATIVE_SQLITE
-            return (Result)Sqlite3.sqlite3_open_v2(filename, out db, flags, "");
+            return (SQLiteResult)Sqlite3.sqlite3_open_v2(filename, out db, flags, "");
 #else
 #if USE_CSHARP_SQLITE
             Sqlite3.sqlite3 database = new Sqlite3DatabaseHandle();
-            var toReturn = (Result)Sqlite3.sqlite3_open_v2(filename, ref database, flags, null);
+            var toReturn = (SQLiteResult)Sqlite3.sqlite3_open_v2(filename, ref database, flags, null);
             db = database;
             return toReturn;
 #else
-            return (Result)Sqlite3.sqlite3_open_v2(filename, out db, flags, null);
+            return (SQLiteResult)Sqlite3.sqlite3_open_v2(filename, out db, flags, null);
 #endif
 #endif
         }
 
-        public static Result Close(Sqlite3DatabaseHandle db)
+        public static SQLiteResult Close(Sqlite3DatabaseHandle db)
         {
-            return (Result)Sqlite3.sqlite3_close(db);
+            return (SQLiteResult)Sqlite3.sqlite3_close(db);
         }
 
-        public static Result BusyTimeout(Sqlite3DatabaseHandle db, int milliseconds)
+        public static SQLiteResult BusyTimeout(Sqlite3DatabaseHandle db, int milliseconds)
         {
-            return (Result)Sqlite3.sqlite3_busy_timeout(db, milliseconds);
+            return (SQLiteResult)Sqlite3.sqlite3_busy_timeout(db, milliseconds);
         }
 
         public static int Changes(Sqlite3DatabaseHandle db)
@@ -3272,27 +3275,27 @@ internal static extern void Activate_See(byte[] passPhrase);
 #endif
             if (r != 0)
             {
-                throw SQLiteException.New((Result)r, GetErrmsg(db));
+                throw SQLiteException.New((SQLiteResult)r, GetErrmsg(db));
             }
             return stmt;
         }
 
-        public static Result Step(Sqlite3Statement stmt)
+        public static SQLiteResult Step(Sqlite3Statement stmt)
         {
-            return (Result)Sqlite3.sqlite3_step(stmt);
+            return (SQLiteResult)Sqlite3.sqlite3_step(stmt);
         }
 
-        public static Result Reset(Sqlite3Statement stmt)
+        public static SQLiteResult Reset(Sqlite3Statement stmt)
         {
-            return (Result)Sqlite3.sqlite3_reset(stmt);
+            return (SQLiteResult)Sqlite3.sqlite3_reset(stmt);
         }
 
-        public static Result Finalize(Sqlite3Statement stmt)
+        public static SQLiteResult Finalize(Sqlite3Statement stmt)
         {
 #if USE_CSHARP_SQLITE
-            return (Result)Sqlite3.sqlite3_finalize(ref stmt);
+            return (SQLiteResult)Sqlite3.sqlite3_finalize(ref stmt);
 #else
-            return (Result)Sqlite3.sqlite3_finalize(stmt);
+            return (SQLiteResult)Sqlite3.sqlite3_finalize(stmt);
 #endif
         }
 
@@ -3415,9 +3418,9 @@ internal static extern void Activate_See(byte[] passPhrase);
         }
 
 
-        public static Result EnableLoadExtension(Sqlite3DatabaseHandle db, int onoff)
+        public static SQLiteResult EnableLoadExtension(Sqlite3DatabaseHandle db, int onoff)
         {
-          return (Result)Sqlite3.sqlite3_enable_load_extension(db, onoff);
+          return (SQLiteResult)Sqlite3.sqlite3_enable_load_extension(db, onoff);
         }
 #endif
 
