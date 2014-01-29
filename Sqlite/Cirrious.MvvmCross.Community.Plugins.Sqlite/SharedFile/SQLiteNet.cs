@@ -1991,9 +1991,9 @@ namespace Community.SQLite
             return ExecuteDeferredQuery<T>(map).ToList();
         }
 
-        public IEnumerable<Dictionary<string, object>> ExecuteQuery()
+        public List<Dictionary<string, object>> ExecuteQuery()
         {
-            return ExecuteDeferredQuery();
+            return ExecuteDeferredQuery().ToList();
         }
 
         /// <summary>
