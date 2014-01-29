@@ -374,7 +374,9 @@ namespace Cirrious.MvvmCross.Community.Plugins.Sqlite
 
         List<T> ExecuteQuery<T>(ITableMapping map);
        
-        IEnumerable<Dictionary<string, object>> ExecuteQuery();
+        List<Dictionary<string, object>> ExecuteQuery();
+
+        IEnumerable<Dictionary<string, object>> ExecuteDeferredQuery();
 
         IEnumerable<T> ExecuteDeferredQuery<T>(ITableMapping map);
 
