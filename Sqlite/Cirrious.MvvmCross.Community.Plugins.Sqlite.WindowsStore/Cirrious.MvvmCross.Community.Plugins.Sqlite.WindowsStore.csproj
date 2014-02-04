@@ -113,14 +113,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <SDKReference Include="Microsoft.VCLibs, version=11.0">
-      <Name>Microsoft Visual C++ Runtime Package</Name>
-    </SDKReference>
-    <SDKReference Include="SQLite.WinRT, Version=3.8.2">
-      <Name>SQLite for Windows Runtime</Name>
-    </SDKReference>
-  </ItemGroup>
-  <ItemGroup>
     <Reference Include="Cirrious.CrossCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=e16445fd9b451819, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.1.156-beta5\lib\netcore45\Cirrious.CrossCore.dll</HintPath>
@@ -133,6 +125,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.1.156-beta5\lib\netcore45\Cirrious.MvvmCross.Localization.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="Loqu8.SQLite.WinRT, Version=3.8.3">
+      <Name>Loqu8 SQLite for Windows Runtime</Name>
+    </SDKReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>
