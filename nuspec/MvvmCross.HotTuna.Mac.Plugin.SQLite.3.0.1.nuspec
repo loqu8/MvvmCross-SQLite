@@ -12,7 +12,7 @@
 		<description>This package contains the Mac Community 'Sqlite' plugin for MvvmCross v3.</description>
 		<tags>mvvm mvvmcross xamarin monodroid monotouch mac</tags>
 		<dependencies>
-		  <dependency id="MvvmCross.HotTuna.Mac.CrossCore" version="3.1.1" />
+		  <dependency id="MvvmCross.HotTuna.CrossCore.Mac" version="3.1.1" />
 		</dependencies>
 	</metadata>
 	<files>		
