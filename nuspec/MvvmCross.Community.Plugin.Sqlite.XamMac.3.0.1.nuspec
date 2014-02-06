@@ -1,18 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
 	<metadata>
-		<id>MvvmCross.Community.Mac.Plugin.Sqlite</id>
+		<id>MvvmCross.Community.Plugin.Sqlite.XamMac</id>
 		<version>3.1.13</version>
-		<title>MvvmCross - Community Mac SQLite-Net Plugin</title>
+		<title>MvvmCross -  Community Mac SQLite-Net Plugin for XamMac</title>
 		<authors>MvvmCross</authors>
 		<owners>Stuart Lodge</owners>
 		<licenseUrl>http://opensource.org/licenses/ms-pl.html</licenseUrl>
 		<projectUrl>https://github.com/MvvmCross/MvvmCross-SQLite</projectUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
-		<description>This package contains the Mac Community 'Sqlite' plugin for MvvmCross v3.</description>
+		<description>This package contains the Community 'Sqlite' plugin for MvvmCross v3 for XamMac.</description>
 		<tags>mvvm mvvmcross xamarin monodroid monotouch mac</tags>
 		<dependencies>
-		  <dependency id="MvvmCross.HotTuna.CrossCore.Mac" version="3.1.1" />
+		  <dependency id="MvvmCross.HotTuna.CrossCore.XamMac" version="3.1.1" />
 		</dependencies>
 	</metadata>
 	<files>		
@@ -31,7 +31,7 @@
 		
 		<!-- mac -->
 			<file src="..\bin\Release\Mvx\Portable\Cirrious.MvvmCross.Community.Plugins.Sqlite.dll" target="lib\net45\Cirrious.MvvmCross.Community.Plugins.Sqlite.dll" />
-			<file src="..\bin\Release\Mvx\Mac\Cirrious.MvvmCross.Community.Plugins.Sqlite.Mac.dll" target="lib\net45\Cirrious.MvvmCross.Community.Plugins.Sqlite.Mac.dll" />
+			<file src="..\bin\Release\Mvx\XamMac\Cirrious.MvvmCross.Community.Plugins.Sqlite.XamMac.dll" target="lib\net45\Cirrious.MvvmCross.Community.Plugins.Sqlite.XamMac.dll" />
 			<file src="MacBootstrapContent\CommunitySqlitePluginBootstrap.cs.pp" target="content\net45\Bootstrap\CommunitySqlitePluginBootstrap.cs.pp" />
 	</files>
 </package>
