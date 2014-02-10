@@ -214,7 +214,7 @@ namespace Community.SQLite
             }
         }
 
-        static byte[] GetNullTerminatedUtf8(string s)
+        public static byte[] GetNullTerminatedUtf8(string s)
         {
             var utf8Length = System.Text.Encoding.UTF8.GetByteCount(s);
             var bytes = new byte[utf8Length + 1];
@@ -2975,7 +2975,7 @@ public static void Activate(string passPhrase)
 {
         if (!string.IsNullOrEmpty(passPhrase))
         {
-            byte[] passPhraseBytes = UTF8Encoding.UTF8.GetBytes(passPhrase);
+            byte[] passPhraseBytes = SQLiteConnection.GetNullTerminatedUtf8(passPhrase);
     
             Activate_Cerod(passPhraseBytes);
             Activate_See(passPhraseBytes);
