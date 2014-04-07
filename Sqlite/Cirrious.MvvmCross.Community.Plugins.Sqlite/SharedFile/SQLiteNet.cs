@@ -3141,7 +3141,7 @@ internal static extern void Activate_See(byte[] passPhrase);
 [DllImport(dllPath, EntryPoint = "sqlite3_interrupt", CallingConvention = CallingConvention.Cdecl)]
 public static extern void Interrupt(IntPtr db);
 
-[DllImport(dllPath", EntryPoint = "sqlite3_errmsg16", CallingConvention = CallingConvention.Cdecl)]
+[DllImport(dllPath, EntryPoint = "sqlite3_errmsg16", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Errmsg(IntPtr db);
 
         public static string GetErrmsg(IntPtr db)
