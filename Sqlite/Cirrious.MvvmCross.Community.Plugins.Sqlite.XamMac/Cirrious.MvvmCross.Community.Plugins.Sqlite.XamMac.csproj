@@ -53,10 +53,6 @@
       <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.XamMac.3.1.176-beta5\lib\net45\Cirrious.MvvmCross.Localization.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Windows, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\MvvmCross.PortableSupport.Mac.3.1.148-beta1\lib\net45\System.Windows.dll</HintPath>
-    </Reference>
     <Reference Include="XamMac, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
