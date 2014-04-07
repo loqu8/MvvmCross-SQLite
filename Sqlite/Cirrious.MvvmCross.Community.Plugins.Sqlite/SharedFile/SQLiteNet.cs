@@ -3307,6 +3307,11 @@ public static extern void Interrupt(IntPtr db);
 #endif
         }
 
+        public static void Interrupt(Sqlite3DatabaseHandle db)
+        {
+            Sqlite3.sqlite3_interrupt(db);
+        }
+
         public static long LastInsertRowid(Sqlite3DatabaseHandle db)
         {
             return Sqlite3.sqlite3_last_insert_rowid(db);

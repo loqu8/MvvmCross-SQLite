@@ -126,7 +126,7 @@ namespace Community.SQLite
             return Task.Factory.StartNew(() =>
             {
                 var conn = GetConnection();
-                
+                conn.Interrupt();
             });
         }
 
