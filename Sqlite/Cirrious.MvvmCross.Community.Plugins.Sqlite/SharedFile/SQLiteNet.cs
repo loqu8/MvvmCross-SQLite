@@ -214,6 +214,11 @@ namespace Community.SQLite
             }
         }
 
+        public void Interrupt()
+        {
+            SQLite3.Interrupt(Handle);
+        }
+
         static byte[] GetNullTerminatedUtf8(string s)
         {
             var utf8Length = System.Text.Encoding.UTF8.GetByteCount(s);
@@ -3125,6 +3130,9 @@ internal static extern void Activate_See(byte[] passPhrase);
 
 [DllImport("sqlite3", EntryPoint = "sqlite3_last_insert_rowid", CallingConvention = CallingConvention.Cdecl)]
         public static extern long LastInsertRowid(IntPtr db);
+
+[DllImport("sqlite3", EntryPoint = "sqlite3_interrupt", CallingConvention = CallingConvention.Cdecl)]
+public static extern void Interrupt(IntPtr db);
 
 [DllImport("sqlite3", EntryPoint = "sqlite3_errmsg16", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Errmsg(IntPtr db);
