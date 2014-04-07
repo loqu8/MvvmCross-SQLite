@@ -121,6 +121,15 @@ namespace Community.SQLite
 			});
 		}
 
+        public Task Interrupt ()
+        {
+            return Task.Factory.StartNew(() =>
+            {
+                var conn = GetConnection();
+                conn.Interrupt();
+            });
+        }
+
 		public Task<int> UpdateAsync (object item)
 		{
 			return Task.Factory.StartNew (() => {
