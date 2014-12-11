@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+	<metadata>
+		<id>MvvmCross.Community.Mac.Plugin.Sqlite</id>
+		<version>3.2.2-beta1</version>
+		<title>MvvmCross - Community SQLite-Net Plugin for Mac</title>
+		<authors>MvvmCross</authors>
+		<owners>Stuart Lodge</owners>
+		<licenseUrl>http://opensource.org/licenses/ms-pl.html</licenseUrl>
+		<projectUrl>https://github.com/MvvmCross/MvvmCross-SQLite</projectUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>This package contains the Community 'Sqlite' plugin for MvvmCross v3 for Mac.</description>
+		<tags>mvvm mvvmcross xamarin monodroid monotouch mac</tags>
+		<dependencies>
+		  <dependency id="MvvmCross.HotTuna.Mac.CrossCore" version="3.2.2" />
+		</dependencies>
+	</metadata>
+	<files>		
+		<!-- PCL -->
+		<file src="..\bin\Release\Mvx\Portable\Cirrious.MvvmCross.Community.Plugins.Sqlite.dll" target="lib\portable-win+net45+MonoAndroid+MonoTouch+wp8+win8+wpa81\Cirrious.MvvmCross.Community.Plugins.Sqlite.dll" />
+	
+		<!-- droid -->
+		<file src="..\bin\Release\Mvx\Portable\Cirrious.MvvmCross.Community.Plugins.Sqlite.dll" target="lib\MonoAndroid\Cirrious.MvvmCross.Community.Plugins.Sqlite.dll" />
+		<file src="..\bin\Release\Mvx\Droid\Cirrious.MvvmCross.Community.Plugins.Sqlite.Droid.dll" target="lib\MonoAndroid\Cirrious.MvvmCross.Community.Plugins.Sqlite.Droid.dll" />
+        <file src="BootstrapContent\CommunitySqlitePluginBootstrap.cs.pp" target="content\MonoAndroid\Bootstrap\CommunitySqlitePluginBootstrap.cs.pp" />
+
+		<!-- touch -->
+		<file src="..\bin\Release\Mvx\Portable\Cirrious.MvvmCross.Community.Plugins.Sqlite.dll" target="lib\MonoTouch\Cirrious.MvvmCross.Community.Plugins.Sqlite.dll" />
+		<file src="..\bin\Release\Mvx\Touch\Cirrious.MvvmCross.Community.Plugins.Sqlite.Touch.dll" target="lib\MonoTouch\Cirrious.MvvmCross.Community.Plugins.Sqlite.Touch.dll" />
+        <file src="TouchBootstrapContent\CommunitySqlitePluginBootstrap.cs.pp" target="content\MonoTouch\Bootstrap\CommunitySqlitePluginBootstrap.cs.pp" />
+
+		<!-- mac --> 
+		<file src="..\bin\Release\Mvx\Portable\Cirrious.MvvmCross.Community.Plugins.Sqlite.dll" target="lib\net45\Cirrious.MvvmCross.Community.Plugins.Sqlite.dll" /> 
+		<file src="..\bin\Release\Mvx\Mac\Cirrious.MvvmCross.Community.Plugins.Sqlite.Mac.dll" target="lib\net45\Cirrious.MvvmCross.Community.Plugins.Sqlite.Mac.dll" /> 
+		<file src="MacBootstrapContent\CommunitySqlitePluginBootstrap.cs.pp" target="content\net45\Bootstrap\CommunitySqlitePluginBootstrap.cs.pp" /> 
+	</files>
+</package>
