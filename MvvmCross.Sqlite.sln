@@ -372,7 +372,6 @@ Global
 		{CF80726C-861B-426D-A287-CAE1F95CC1E5}.Debug|x86.ActiveCfg = Debug|iPhone
 		{CF80726C-861B-426D-A287-CAE1F95CC1E5}.Release|Any CPU.ActiveCfg = Release|iPhone
 		{CF80726C-861B-426D-A287-CAE1F95CC1E5}.Release|ARM.ActiveCfg = Release|iPhone
-		{CF80726C-861B-426D-A287-CAE1F95CC1E5}.Release|ARM.Build.0 = Release|iPhone
 		{CF80726C-861B-426D-A287-CAE1F95CC1E5}.Release|iPhone.ActiveCfg = Release|iPhone
 		{CF80726C-861B-426D-A287-CAE1F95CC1E5}.Release|iPhone.Build.0 = Release|iPhone
 		{CF80726C-861B-426D-A287-CAE1F95CC1E5}.Release|iPhone.Deploy.0 = Release|iPhone
