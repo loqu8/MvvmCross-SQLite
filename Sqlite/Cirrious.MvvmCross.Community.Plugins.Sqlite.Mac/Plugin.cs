@@ -8,14 +8,14 @@
 using Cirrious.CrossCore;
 using Cirrious.CrossCore.Plugins;
 
-namespace Cirrious.MvvmCross.Community.Plugins.Sqlite.Wpf
+namespace Cirrious.MvvmCross.Community.Plugins.Sqlite.Mac
 {
 	public class Plugin
 		: IMvxPlugin
 	{
 		public void Load()
 		{
-            var factory = new MvxSqLiteMacConnectionFactory();
+            var factory = new MvxMacSQLiteConnectionFactory();
             Mvx.RegisterSingleton<ISQLiteConnectionFactory>(factory);
             Mvx.RegisterSingleton<ISQLiteConnectionFactoryEx>(factory);
         }
