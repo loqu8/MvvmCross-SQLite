@@ -15,7 +15,7 @@ namespace Cirrious.MvvmCross.Community.Plugins.Sqlite.Wpf
 	{
 		public void Load()
 		{
-            var factory = new MvxWpfSqLiteConnectionFactory();
+            var factory = new MvxWpfSQLiteConnectionFactory();
             Mvx.RegisterSingleton<ISQLiteConnectionFactory>(factory);
             Mvx.RegisterSingleton<ISQLiteConnectionFactoryEx>(factory);
         }

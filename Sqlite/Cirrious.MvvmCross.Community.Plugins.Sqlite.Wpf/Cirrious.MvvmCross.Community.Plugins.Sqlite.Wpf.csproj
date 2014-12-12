@@ -71,7 +71,7 @@
     <Compile Include="..\Cirrious.MvvmCross.Community.Plugins.Sqlite\SharedFile\SQLiteNet.cs">
       <Link>SQLiteNet.cs</Link>
     </Compile>
-    <Compile Include="MvxWpfSqLiteConnectionFactory.cs" />
+    <Compile Include="MvxWpfSQLiteConnectionFactory.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
