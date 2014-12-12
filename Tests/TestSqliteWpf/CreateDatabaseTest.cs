@@ -36,7 +36,7 @@ namespace TestSqliteWpf
 #elif __ANDROID__
                 ISQLiteConnectionFactory factory = new MvxDroidSQLiteConnectionFactory();
 #else
-                ISQLiteConnectionFactory factory = new MvxWpfSqLiteConnectionFactory();
+                ISQLiteConnectionFactory factory = new MvxWpfSQLiteConnectionFactory();
 #endif
                 
                 string filename = Guid.NewGuid().ToString() + ".db";
@@ -81,7 +81,7 @@ namespace TestSqliteWpf
 #elif __ANDROID__
                 ISQLiteConnectionFactory factory = new MvxDroidSQLiteConnectionFactory();
 #else
-                ISQLiteConnectionFactory factory = new MvxWpfSqLiteConnectionFactory();
+                ISQLiteConnectionFactory factory = new MvxWpfSQLiteConnectionFactory();
 #endif
 
                 // Act
@@ -116,7 +116,7 @@ namespace TestSqliteWpf
 #elif __ANDROID__
                 ISQLiteConnectionFactory factory = new MvxDroidSQLiteConnectionFactory();
 #else
-                ISQLiteConnectionFactory factory = new MvxWpfSqLiteConnectionFactory();
+                ISQLiteConnectionFactory factory = new MvxWpfSQLiteConnectionFactory();
 #endif
 
                 // Act
@@ -152,7 +152,7 @@ namespace TestSqliteWpf
 #elif __ANDROID__
                 ISQLiteConnectionFactoryEx factory = new MvxDroidSQLiteConnectionFactory();
 #else
-                ISQLiteConnectionFactoryEx factory = new MvxWpfSqLiteConnectionFactory();
+                ISQLiteConnectionFactoryEx factory = new MvxWpfSQLiteConnectionFactory();
 #endif
 
                 // Act
@@ -180,7 +180,7 @@ namespace TestSqliteWpf
 #elif __ANDROID__
                 ISQLiteConnectionFactoryEx factory = new MvxDroidSQLiteConnectionFactory();
 #else
-                ISQLiteConnectionFactoryEx factory = new MvxWpfSqLiteConnectionFactory();
+                ISQLiteConnectionFactoryEx factory = new MvxWpfSQLiteConnectionFactory();
 #endif
                 SQLiteConnectionOptions options = new SQLiteConnectionOptions { Address = null, Type = SQLiteConnectionOptions.DatabaseType.File };
 

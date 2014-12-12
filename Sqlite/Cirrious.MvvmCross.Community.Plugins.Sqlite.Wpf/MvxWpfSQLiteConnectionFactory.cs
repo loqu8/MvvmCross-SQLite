@@ -12,7 +12,7 @@ using CommonResources = Cirrious.MvvmCross.Community.Plugins.Sqlite.Properties.R
 
 namespace Cirrious.MvvmCross.Community.Plugins.Sqlite.Wpf
 {
-    public class MvxWpfSqLiteConnectionFactory
+    public class MvxWpfSQLiteConnectionFactory
         : MvxBaseSQLiteConnectionFactory
     {
         protected override string GetDefaultBasePath()
