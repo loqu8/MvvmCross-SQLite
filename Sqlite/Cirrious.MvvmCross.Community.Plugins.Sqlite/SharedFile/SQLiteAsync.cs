@@ -53,6 +53,15 @@ namespace Community.SQLite
 			return SQLiteConnectionPool.Shared.GetConnection (_connectionString, _openFlags);
 		}
 
+        public Task Interrupt ()
+        {
+            return Task.Factory.StartNew(() =>
+                {
+                    var conn = GetConnection();
+                    conn.Interrupt();
+                });
+        }
+
 		public Task<CreateTablesResult> CreateTableAsync<T> ()
 			where T : new ()
 		{

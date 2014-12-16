@@ -283,6 +283,11 @@ namespace Community.SQLite
         }
 #endif
 
+        public void Interrupt()
+        {
+            SQLite3.Interrupt(Handle);
+        }
+
 #if !USE_SQLITEPCL_RAW
         static byte[] GetNullTerminatedUtf8(string s)
         {
@@ -3590,6 +3595,9 @@ private const string dllPath =
         [DllImport(dllPath, EntryPoint = "sqlite3_last_insert_rowid", CallingConvention = CallingConvention.Cdecl)]
         public static extern long LastInsertRowid(IntPtr db);
 
+        [DllImport(dllPath, EntryPoint = "sqlite3_interrupt", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void Interrupt(IntPtr db);
+
         [DllImport(dllPath, EntryPoint = "sqlite3_errmsg16", CallingConvention = CallingConvention.Cdecl)]
         public static extern IntPtr Errmsg(IntPtr db);
 
@@ -3740,6 +3748,11 @@ private const string dllPath =
 		{
 			return Sqlite3.sqlite3_last_insert_rowid(db);
 		}
+
+        public static void Interrupt(Sqlite3DatabaseHandle db)
+        {
+            Sqlite3.sqlite3_interrupt(db);
+        }
 
 		public static string GetErrmsg(Sqlite3DatabaseHandle db)
 		{
