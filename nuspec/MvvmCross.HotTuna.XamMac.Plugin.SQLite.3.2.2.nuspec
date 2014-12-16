@@ -17,7 +17,7 @@
 	</metadata>
 	<files>		
 		<!-- PCL -->
-		<file src="..\bin\Release\Mvx\Portable\Cirrious.MvvmCross.Community.Plugins.Sqlite.dll" target="lib\portable-win+net45+MonoAndroid+MonoTouch+wp8+win8+wpa81\Cirrious.MvvmCross.Community.Plugins.Sqlite.dll" />
+		<file src="..\bin\Release\Mvx\Portable\Cirrious.MvvmCross.Community.Plugins.Sqlite.dll" target="lib\portable-win+net45+wp8+win8+wpa81+Xamarin.iOS10+MonoAndroid\Cirrious.MvvmCross.Community.Plugins.Sqlite.dll" />
 	
 		<!-- droid -->
 		<file src="..\bin\Release\Mvx\Portable\Cirrious.MvvmCross.Community.Plugins.Sqlite.dll" target="lib\MonoAndroid\Cirrious.MvvmCross.Community.Plugins.Sqlite.dll" />
