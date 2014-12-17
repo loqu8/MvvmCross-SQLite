@@ -353,6 +353,11 @@ namespace Cirrious.MvvmCross.Community.Plugins.Sqlite
         TimeSpan BusyTimeout { get; set; }
 
         /// <summary>
+        /// Interrupt all active statements
+        /// </summary>
+        void Interrupt();
+
+        /// <summary>
         /// Retrieves the mapping that is automatically generated for the given type.
         /// </summary>
         /// <param name="type">
