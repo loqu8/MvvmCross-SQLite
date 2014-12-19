@@ -100,33 +100,17 @@ namespace System.Diagnostics
 
 namespace Community.SQLite
 {
-    public class SQLiteException : Exception
-    {
-        public SQLite3.Result Result { get; private set; }
-
-        protected SQLiteException(SQLite3.Result r, string message)
-            : base(message)
-        {
-            Result = r;
-        }
-
-        public static SQLiteException New(SQLite3.Result r, string message)
-        {
-            return new SQLiteException(r, message);
-        }
-    }
-
     public class NotNullConstraintViolationException : SQLiteException
     {
         public IEnumerable<TableMapping.Column> Columns { get; protected set; }
 
-        protected NotNullConstraintViolationException(SQLite3.Result r, string message)
+        protected NotNullConstraintViolationException(SQLiteResult r, string message)
             : this(r, message, null, null)
         {
 
         }
 
-        protected NotNullConstraintViolationException(SQLite3.Result r, string message, TableMapping mapping, object obj)
+        protected NotNullConstraintViolationException(SQLiteResult r, string message, TableMapping mapping, object obj)
             : base(r, message)
         {
             if (mapping != null && obj != null)
@@ -137,12 +121,12 @@ namespace Community.SQLite
             }
         }
 
-        public static new NotNullConstraintViolationException New(SQLite3.Result r, string message)
+        public static new NotNullConstraintViolationException New(SQLiteResult r, string message)
         {
             return new NotNullConstraintViolationException(r, message);
         }
 
-        public static NotNullConstraintViolationException New(SQLite3.Result r, string message, TableMapping mapping, object obj)
+        public static NotNullConstraintViolationException New(SQLiteResult r, string message, TableMapping mapping, object obj)
         {
             return new NotNullConstraintViolationException(r, message, mapping, obj);
         }
@@ -151,18 +135,6 @@ namespace Community.SQLite
         {
             return new NotNullConstraintViolationException(exception.Result, exception.Message, mapping, obj);
         }
-    }
-
-    [Flags]
-    public enum SQLiteOpenFlags
-    {
-        ReadOnly = 1, ReadWrite = 2, Create = 4,
-        NoMutex = 0x8000, FullMutex = 0x10000,
-        SharedCache = 0x20000, PrivateCache = 0x40000,
-        ProtectionComplete = 0x00100000,
-        ProtectionCompleteUnlessOpen = 0x00200000,
-        ProtectionCompleteUntilFirstUserAuthentication = 0x00300000,
-        ProtectionNone = 0x00400000
     }
 
     /// <summary>
@@ -244,7 +216,7 @@ namespace Community.SQLite
 #endif
 
             Handle = handle;
-            if (r != SQLite3.Result.OK)
+            if (r != SQLiteResult.OK)
             {
                 throw SQLiteException.New(r, String.Format("Could not open database file: {0} ({1})", DatabasePath, r));
             }
@@ -274,8 +246,8 @@ namespace Community.SQLite
 #if !USE_SQLITEPCL_RAW
         public void EnableLoadExtension(int onoff)
         {
-            SQLite3.Result r = SQLite3.EnableLoadExtension(Handle, onoff);
-            if (r != SQLite3.Result.OK)
+            SQLiteResult r = SQLite3.EnableLoadExtension(Handle, onoff);
+            if (r != SQLiteResult.OK)
             {
                 string msg = SQLite3.GetErrmsg(Handle);
                 throw SQLiteException.New(r, msg);
@@ -644,7 +616,7 @@ namespace Community.SQLite
         public ISQLiteCommand CreateCommand(string cmdText, params object[] ps)
         {
             if (!_open)
-                throw SQLiteException.New(SQLite3.Result.Error, "Cannot create commands from unopened database");
+                throw SQLiteException.New(SQLiteResult.Error, "Cannot create commands from unopened database");
 
             var cmd = NewCommand();
             cmd.CommandText = cmdText;
@@ -982,11 +954,11 @@ namespace Community.SQLite
                         // TODO: This rollback failsafe should be localized to all throw sites.
                         switch (sqlExp.Result)
                         {
-                            case SQLite3.Result.IOError:
-                            case SQLite3.Result.Full:
-                            case SQLite3.Result.Busy:
-                            case SQLite3.Result.NoMem:
-                            case SQLite3.Result.Interrupt:
+                            case SQLiteResult.IOError:
+                            case SQLiteResult.Full:
+                            case SQLiteResult.Busy:
+                            case SQLiteResult.NoMem:
+                            case SQLiteResult.Interrupt:
                                 RollbackTo(null, true);
                                 break;
                         }
@@ -1036,11 +1008,11 @@ namespace Community.SQLite
                     // TODO: This rollback failsafe should be localized to all throw sites.
                     switch (sqlExp.Result)
                     {
-                        case SQLite3.Result.IOError:
-                        case SQLite3.Result.Full:
-                        case SQLite3.Result.Busy:
-                        case SQLite3.Result.NoMem:
-                        case SQLite3.Result.Interrupt:
+                        case SQLiteResult.IOError:
+                        case SQLiteResult.Full:
+                        case SQLiteResult.Busy:
+                        case SQLiteResult.NoMem:
+                        case SQLiteResult.Interrupt:
                             RollbackTo(null, true);
                             break;
                     }
@@ -1438,7 +1410,7 @@ namespace Community.SQLite
             }
             catch (SQLiteException ex)
             {
-                if (SQLite3.ExtendedErrCode(this.Handle) == SQLite3.ExtendedResult.ConstraintNotNull)
+                if (SQLite3.ExtendedErrCode(this.Handle) == SQLiteExtendedResult.ConstraintNotNull)
                 {
                     throw NotNullConstraintViolationException.New(ex.Result, ex.Message, map, obj);
                 }
@@ -1527,7 +1499,7 @@ namespace Community.SQLite
             catch (SQLiteException ex)
             {
 
-                if (ex.Result == SQLite3.Result.Constraint && SQLite3.ExtendedErrCode(this.Handle) == SQLite3.ExtendedResult.ConstraintNotNull)
+                if (ex.Result == SQLiteResult.Constraint && SQLite3.ExtendedErrCode(this.Handle) == SQLiteExtendedResult.ConstraintNotNull)
                 {
                     throw NotNullConstraintViolationException.New(ex, map, obj);
                 }
@@ -1672,7 +1644,7 @@ namespace Community.SQLite
                         }
                     }
                     var r = SQLite3.Close(Handle);
-                    if (r != SQLite3.Result.OK)
+                    if (r != SQLiteResult.OK)
                     {
                         string msg = SQLite3.GetErrmsg(Handle);
                         throw SQLiteException.New(r, msg);
@@ -2198,19 +2170,19 @@ namespace Community.SQLite
         private int stepNonQuery(Sqlite3Statement stmt)
         {
             var r = SQLite3.Step(stmt);
-            if (r == SQLite3.Result.Done)
+            if (r == SQLiteResult.Done)
             {
                 int rowsAffected = SQLite3.Changes(_conn.Handle);
                 return rowsAffected;
             }
-            else if (r == SQLite3.Result.Error)
+            else if (r == SQLiteResult.Error)
             {
                 string msg = SQLite3.GetErrmsg(_conn.Handle);
                 throw SQLiteException.New(r, msg);
             }
-            else if (r == SQLite3.Result.Constraint)
+            else if (r == SQLiteResult.Constraint)
             {
-                if (SQLite3.ExtendedErrCode(_conn.Handle) == SQLite3.ExtendedResult.ConstraintNotNull)
+                if (SQLite3.ExtendedErrCode(_conn.Handle) == SQLiteExtendedResult.ConstraintNotNull)
                 {
                     throw NotNullConstraintViolationException.New(r, SQLite3.GetErrmsg(_conn.Handle));
                 }
@@ -2304,7 +2276,7 @@ namespace Community.SQLite
                             cols[i] = ((TableMapping)map).FindColumn(name);
                         }
 
-                        while (SQLite3.Step(stmt) == SQLite3.Result.Row)
+                        while (SQLite3.Step(stmt) == SQLiteResult.Row)
                         {
                             var obj = Activator.CreateInstance(((TableMapping)map).MappedType);
                             for (int i = 0; i < cols.Length; i++)
@@ -2355,7 +2327,7 @@ namespace Community.SQLite
                             cols[i] = name;
                         }
 
-                        while (SQLite3.Step(stmt) == SQLite3.Result.Row)
+                        while (SQLite3.Step(stmt) == SQLiteResult.Row)
                         {
                             var obj = new Dictionary<string, object>();
                             for (int i = 0; i < cols.Length; i++)
@@ -2419,12 +2391,12 @@ namespace Community.SQLite
                     if (colcount > 0)
                     {
                         var r = SQLite3.Step(stmt);
-                        if (r == SQLite3.Result.Row)
+                        if (r == SQLiteResult.Row)
                         {
                             var colType = SQLite3.ColumnType(stmt, 0);
                             val = (T)ReadCol(stmt, 0, colType, typeof(T));
                         }
-                        else if (r == SQLite3.Result.Done)
+                        else if (r == SQLiteResult.Done)
                         {
                         }
                         else
@@ -2737,7 +2709,7 @@ namespace Community.SQLite
                 Debug.WriteLine("Executing: " + this.ToString());  // CommandText doesn't show the bound parameters, but ToString does
             }
 
-            var r = SQLite3.Result.OK;
+            var r = SQLiteResult.OK;
             remainingText = CommandText.Trim().TrimEnd(';');
 
             if (!Initialized)
@@ -2756,19 +2728,19 @@ namespace Community.SQLite
             }
             r = SQLite3.Step(Statement);
 
-            if (r == SQLite3.Result.Done)
+            if (r == SQLiteResult.Done)
             {
                 int rowsAffected = SQLite3.Changes(Connection.Handle);
                 SQLite3.Reset(Statement);
                 return rowsAffected;
             }
-            else if (r == SQLite3.Result.Error)
+            else if (r == SQLiteResult.Error)
             {
                 string msg = SQLite3.GetErrmsg(Connection.Handle);
                 SQLite3.Reset(Statement);
                 throw SQLiteException.New(r, msg);
             }
-            else if (r == SQLite3.Result.Constraint && SQLite3.ExtendedErrCode(Connection.Handle) == SQLite3.ExtendedResult.ConstraintNotNull)
+            else if (r == SQLiteResult.Constraint && SQLite3.ExtendedErrCode(Connection.Handle) == SQLiteExtendedResult.ConstraintNotNull)
             {
                 SQLite3.Reset(Statement);
                 throw NotNullConstraintViolationException.New(r, SQLite3.GetErrmsg(Connection.Handle));
@@ -3386,91 +3358,6 @@ namespace Community.SQLite
 
     public static class SQLite3
     {
-        public enum Result : int
-        {
-            OK = 0,
-            Error = 1,
-            Internal = 2,
-            Perm = 3,
-            Abort = 4,
-            Busy = 5,
-            Locked = 6,
-            NoMem = 7,
-            ReadOnly = 8,
-            Interrupt = 9,
-            IOError = 10,
-            Corrupt = 11,
-            NotFound = 12,
-            Full = 13,
-            CannotOpen = 14,
-            LockErr = 15,
-            Empty = 16,
-            SchemaChngd = 17,
-            TooBig = 18,
-            Constraint = 19,
-            Mismatch = 20,
-            Misuse = 21,
-            NotImplementedLFS = 22,
-            AccessDenied = 23,
-            Format = 24,
-            Range = 25,
-            NonDBFile = 26,
-            Notice = 27,
-            Warning = 28,
-            Row = 100,
-            Done = 101
-        }
-
-        public enum ExtendedResult : int
-        {
-            IOErrorRead = (Result.IOError | (1 << 8)),
-            IOErrorShortRead = (Result.IOError | (2 << 8)),
-            IOErrorWrite = (Result.IOError | (3 << 8)),
-            IOErrorFsync = (Result.IOError | (4 << 8)),
-            IOErrorDirFSync = (Result.IOError | (5 << 8)),
-            IOErrorTruncate = (Result.IOError | (6 << 8)),
-            IOErrorFStat = (Result.IOError | (7 << 8)),
-            IOErrorUnlock = (Result.IOError | (8 << 8)),
-            IOErrorRdlock = (Result.IOError | (9 << 8)),
-            IOErrorDelete = (Result.IOError | (10 << 8)),
-            IOErrorBlocked = (Result.IOError | (11 << 8)),
-            IOErrorNoMem = (Result.IOError | (12 << 8)),
-            IOErrorAccess = (Result.IOError | (13 << 8)),
-            IOErrorCheckReservedLock = (Result.IOError | (14 << 8)),
-            IOErrorLock = (Result.IOError | (15 << 8)),
-            IOErrorClose = (Result.IOError | (16 << 8)),
-            IOErrorDirClose = (Result.IOError | (17 << 8)),
-            IOErrorSHMOpen = (Result.IOError | (18 << 8)),
-            IOErrorSHMSize = (Result.IOError | (19 << 8)),
-            IOErrorSHMLock = (Result.IOError | (20 << 8)),
-            IOErrorSHMMap = (Result.IOError | (21 << 8)),
-            IOErrorSeek = (Result.IOError | (22 << 8)),
-            IOErrorDeleteNoEnt = (Result.IOError | (23 << 8)),
-            IOErrorMMap = (Result.IOError | (24 << 8)),
-            LockedSharedcache = (Result.Locked | (1 << 8)),
-            BusyRecovery = (Result.Busy | (1 << 8)),
-            CannottOpenNoTempDir = (Result.CannotOpen | (1 << 8)),
-            CannotOpenIsDir = (Result.CannotOpen | (2 << 8)),
-            CannotOpenFullPath = (Result.CannotOpen | (3 << 8)),
-            CorruptVTab = (Result.Corrupt | (1 << 8)),
-            ReadonlyRecovery = (Result.ReadOnly | (1 << 8)),
-            ReadonlyCannotLock = (Result.ReadOnly | (2 << 8)),
-            ReadonlyRollback = (Result.ReadOnly | (3 << 8)),
-            AbortRollback = (Result.Abort | (2 << 8)),
-            ConstraintCheck = (Result.Constraint | (1 << 8)),
-            ConstraintCommitHook = (Result.Constraint | (2 << 8)),
-            ConstraintForeignKey = (Result.Constraint | (3 << 8)),
-            ConstraintFunction = (Result.Constraint | (4 << 8)),
-            ConstraintNotNull = (Result.Constraint | (5 << 8)),
-            ConstraintPrimaryKey = (Result.Constraint | (6 << 8)),
-            ConstraintTrigger = (Result.Constraint | (7 << 8)),
-            ConstraintUnique = (Result.Constraint | (8 << 8)),
-            ConstraintVTab = (Result.Constraint | (9 << 8)),
-            NoticeRecoverWAL = (Result.Notice | (1 << 8)),
-            NoticeRecoverRollback = (Result.Notice | (2 << 8))
-        }
-
-
         public enum ConfigOption : int
         {
             SingleThread = 1,
@@ -3544,47 +3431,47 @@ namespace Community.SQLite
         public static extern int Threadsafe();
 
         [DllImport(dllPath, EntryPoint = "sqlite3_open", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Result Open([MarshalAs(UnmanagedType.LPStr)] string filename, out IntPtr db);
+        public static extern SQLiteResult Open([MarshalAs(UnmanagedType.LPStr)] string filename, out IntPtr db);
 
         [DllImport(dllPath, EntryPoint = "sqlite3_open_v2", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Result Open([MarshalAs(UnmanagedType.LPStr)] string filename, out IntPtr db, int flags, IntPtr zvfs);
+        public static extern SQLiteResult Open([MarshalAs(UnmanagedType.LPStr)] string filename, out IntPtr db, int flags, IntPtr zvfs);
 
         [DllImport(dllPath, EntryPoint = "sqlite3_open_v2", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Result Open(byte[] filename, out IntPtr db, int flags, IntPtr zvfs);
+        public static extern SQLiteResult Open(byte[] filename, out IntPtr db, int flags, IntPtr zvfs);
 
         [DllImport(dllPath, EntryPoint = "sqlite3_open16", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Result Open16([MarshalAs(UnmanagedType.LPWStr)] string filename, out IntPtr db);
+        public static extern SQLiteResult Open16([MarshalAs(UnmanagedType.LPWStr)] string filename, out IntPtr db);
 
         [DllImport(dllPath, EntryPoint = "sqlite3_enable_load_extension", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Result EnableLoadExtension(IntPtr db, int onoff);
+        public static extern SQLiteResult EnableLoadExtension(IntPtr db, int onoff);
 
         [DllImport(dllPath, EntryPoint = "sqlite3_close", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Result Close(IntPtr db);
+        public static extern SQLiteResult Close(IntPtr db);
 
         [DllImport(dllPath, EntryPoint = "sqlite3_initialize", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Result Initialize();
+        public static extern SQLiteResult Initialize();
 
         [DllImport(dllPath, EntryPoint = "sqlite3_shutdown", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Result Shutdown();
+        public static extern SQLiteResult Shutdown();
 
         [DllImport(dllPath, EntryPoint = "sqlite3_config", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Result Config(ConfigOption option);
+        public static extern SQLiteResult Config(ConfigOption option);
 
         [DllImport(dllPath, EntryPoint = "sqlite3_win32_set_directory", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Unicode)]
         public static extern int SetDirectory(uint directoryType, string directoryPath);
 
         [DllImport(dllPath, EntryPoint = "sqlite3_busy_timeout", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Result BusyTimeout(IntPtr db, int milliseconds);
+        public static extern SQLiteResult BusyTimeout(IntPtr db, int milliseconds);
 
         [DllImport(dllPath, EntryPoint = "sqlite3_changes", CallingConvention = CallingConvention.Cdecl)]
         public static extern int Changes(IntPtr db);
 
         [DllImport(dllPath, EntryPoint = "sqlite3_prepare_v2", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Result Prepare2(IntPtr db, [MarshalAs(UnmanagedType.LPStr)] string sql, int numBytes, out IntPtr stmt, out IntPtr pzTail);
+        public static extern SQLiteResult Prepare2(IntPtr db, [MarshalAs(UnmanagedType.LPStr)] string sql, int numBytes, out IntPtr stmt, out IntPtr pzTail);
 
 #if NETFX_CORE
           [DllImport(dllPath, EntryPoint = "sqlite3_prepare_v2", CallingConvention = CallingConvention.Cdecl)]
-          public static extern Result Prepare2 (IntPtr db, byte[] queryBytes, int numBytes, out IntPtr stmt, out IntPtr pzTail);
+          public static extern SQLiteResult Prepare2 (IntPtr db, byte[] queryBytes, int numBytes, out IntPtr stmt, out IntPtr pzTail);
 #endif
 
         public static IntPtr Prepare2(IntPtr db, ref string query)
@@ -3600,7 +3487,7 @@ namespace Community.SQLite
 
             var queryTail = UTF8ToString(pzTail, -1);
 
-            if (r != Result.OK)
+            if (r != SQLiteResult.OK)
             {
                 throw SQLiteException.New(r, GetErrmsg(db));
             }
@@ -3610,13 +3497,13 @@ namespace Community.SQLite
         }
 
         [DllImport(dllPath, EntryPoint = "sqlite3_step", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Result Step(IntPtr stmt);
+        public static extern SQLiteResult Step(IntPtr stmt);
 
         [DllImport(dllPath, EntryPoint = "sqlite3_reset", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Result Reset(IntPtr stmt);
+        public static extern SQLiteResult Reset(IntPtr stmt);
 
         [DllImport(dllPath, EntryPoint = "sqlite3_finalize", CallingConvention = CallingConvention.Cdecl)]
-        public static extern Result Finalize(IntPtr stmt);
+        public static extern SQLiteResult Finalize(IntPtr stmt);
 
         [DllImport(dllPath, EntryPoint = "sqlite3_last_insert_rowid", CallingConvention = CallingConvention.Cdecl)]
         public static extern long LastInsertRowid(IntPtr db);
@@ -3705,33 +3592,33 @@ namespace Community.SQLite
         }
 
         [DllImport(dllPath, EntryPoint = "sqlite3_extended_errcode", CallingConvention = CallingConvention.Cdecl)]
-        public static extern ExtendedResult ExtendedErrCode(IntPtr db);
+        public static extern SQLiteExtendedResult ExtendedErrCode(IntPtr db);
 
         [DllImport(dllPath, EntryPoint = "sqlite3_libversion_number", CallingConvention = CallingConvention.Cdecl)]
         public static extern int LibVersionNumber();
 #else
-          public static Result Open(string filename, out Sqlite3DatabaseHandle db)
+          public static SQLiteResult Open(string filename, out Sqlite3DatabaseHandle db)
           {
-               return (Result) Sqlite3.sqlite3_open(filename, out db);
+               return (SQLiteResult) Sqlite3.sqlite3_open(filename, out db);
           }
 
-          public static Result Open(string filename, out Sqlite3DatabaseHandle db, int flags, IntPtr zVfs)
+          public static SQLiteResult Open(string filename, out Sqlite3DatabaseHandle db, int flags, IntPtr zVfs)
           {
 #if USE_WP8_NATIVE_SQLITE
-               return (Result)Sqlite3.sqlite3_open_v2(filename, out db, flags, "");
+               return (SQLiteResult)Sqlite3.sqlite3_open_v2(filename, out db, flags, "");
 #else
-               return (Result)Sqlite3.sqlite3_open_v2(filename, out db, flags, null);
+               return (SQLiteResult)Sqlite3.sqlite3_open_v2(filename, out db, flags, null);
 #endif
           }
 
-          public static Result Close(Sqlite3DatabaseHandle db)
+          public static SQLiteResult Close(Sqlite3DatabaseHandle db)
           {
-               return (Result)Sqlite3.sqlite3_close(db);
+               return (SQLiteResult)Sqlite3.sqlite3_close(db);
           }
 
-          public static Result BusyTimeout(Sqlite3DatabaseHandle db, int milliseconds)
+          public static SQLiteResult BusyTimeout(Sqlite3DatabaseHandle db, int milliseconds)
           {
-               return (Result)Sqlite3.sqlite3_busy_timeout(db, milliseconds);
+               return (SQLiteResult)Sqlite3.sqlite3_busy_timeout(db, milliseconds);
           }
 
           public static int Changes(Sqlite3DatabaseHandle db)
@@ -3750,24 +3637,24 @@ namespace Community.SQLite
 #endif
                if (r != 0)
                {
-                    throw SQLiteException.New((Result)r, GetErrmsg(db));
+                    throw SQLiteException.New((SQLiteResult)r, GetErrmsg(db));
                }
                return stmt;
           }
 
-          public static Result Step(Sqlite3Statement stmt)
+          public static SQLiteResult Step(Sqlite3Statement stmt)
           {
-               return (Result)Sqlite3.sqlite3_step(stmt);
+               return (SQLiteResult)Sqlite3.sqlite3_step(stmt);
           }
 
-          public static Result Reset(Sqlite3Statement stmt)
+          public static SQLiteResult Reset(Sqlite3Statement stmt)
           {
-               return (Result)Sqlite3.sqlite3_reset(stmt);
+               return (SQLiteResult)Sqlite3.sqlite3_reset(stmt);
           }
 
-          public static Result Finalize(Sqlite3Statement stmt)
+          public static SQLiteResult Finalize(Sqlite3Statement stmt)
           {
-               return (Result)Sqlite3.sqlite3_finalize(stmt);
+               return (SQLiteResult)Sqlite3.sqlite3_finalize(stmt);
           }
 
           public static long LastInsertRowid(Sqlite3DatabaseHandle db)
@@ -3898,15 +3785,15 @@ namespace Community.SQLite
           }
 
 #if !USE_SQLITEPCL_RAW
-          public static Result EnableLoadExtension(Sqlite3DatabaseHandle db, int onoff)
+          public static SQLiteResult EnableLoadExtension(Sqlite3DatabaseHandle db, int onoff)
           {
-               return (Result)Sqlite3.sqlite3_enable_load_extension(db, onoff);
+               return (SQLiteResult)Sqlite3.sqlite3_enable_load_extension(db, onoff);
           }
 #endif
 
-          public static ExtendedResult ExtendedErrCode(Sqlite3DatabaseHandle db)
+          public static SQLiteExtendedResult ExtendedErrCode(Sqlite3DatabaseHandle db)
           {
-               return (ExtendedResult)Sqlite3.sqlite3_extended_errcode(db);
+              return (SQLiteExtendedResult)Sqlite3.sqlite3_extended_errcode(db);
           }
 #endif
 
