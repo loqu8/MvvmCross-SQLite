@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
 	<metadata>
 		<id>MvvmCross.Community.XamMac.Plugin.Sqlite</id>
-		<version>3.2.3-beta3</version>
+		<version>3.2.3-beta4</version>
 		<title>MvvmCross - Community SQLite-Net Plugin for XamMac</title>
 		<authors>MvvmCross</authors>
 		<owners>Stuart Lodge</owners>
